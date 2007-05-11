@@ -9,6 +9,15 @@ Runtime requirements:
   cygwin-1.5.24-2
   libxml2-2.6.28-1
   zlib-1.2.3-2
+(java bindings)
+  classpath-0.93-1
+  jamvm-1.4.5-1
+(perl bindings)
+  perl-5.8.7-5
+(python bindings)
+  python-2.4.3-1
+(ruby bindings)
+  ruby-1.8.5-3
 
 Build requirements:
 (besides corresponding -devel packages)
@@ -16,9 +25,11 @@ Build requirements:
   autoconf2.5-2.61-1
   automake1.9-1.9.6-2
   binutils-20060817-1
-  cygport-0.2.11-1
+  fastjar-0.94-1
+  cygport-0.3.1-1
   gawk-3.1.5-4
   gcc-core-3.4.4-3
+  jikes-1.22-4
   libtool1.5-1.5.23a-2
   make-3.81-1
   sed-4.1.5-2
@@ -41,10 +52,14 @@ Build instructions:
 This will create:
   /usr/src/openbabel-2.1.0-X-src.tar.bz2
   /usr/src/openbabel-2.1.0-X.tar.bz2
+  /usr/src/java-openbabel-2.1.0-X.tar.bz2
   /usr/src/libinchi-devel-2.1.0-X.tar.bz2
   /usr/src/libinchi0-2.1.0-X.tar.bz2
   /usr/src/libopenbabel-devel-2.1.0-X.tar.bz2
   /usr/src/libopenbabel2-2.1.0-X.tar.bz2
+  /usr/src/perl-Chemistry-OpenBabel-2.1.0-X.tar.bz2
+  /usr/src/python-openbabel-2.1.0-X.tar.bz2
+  /usr/src/ruby-openbabel-2.1.0-X.tar.bz2
 
 -------------------------------------------
 
@@ -285,6 +300,30 @@ Files included in the binary packages:
   /usr/lib/libopenbabel.dll.a
   /usr/lib/libopenbabel.la
   /usr/lib/pkgconfig/openbabel-2.0.pc
+
+(java-openbabel)
+  /usr/bin/cygopenbabeljni.dll
+  /usr/share/java/openbabel.jar
+
+(perl-Chemistry-OpenBabel)
+  /etc/postinstall/openbabel.sh
+  /usr/lib/perl5/vendor_perl/5.8/cygwin/Chemistry/OpenBabel.pm
+  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/.packlist
+  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/OpenBabel.bs
+  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/OpenBabel.dll
+  /usr/share/perl/cygwin-pods/5.8/openbabel.pod
+
+(python-openbabel)
+  /usr/lib/python2.4/site-packages/_openbabel.dll
+  /usr/lib/python2.4/site-packages/openbabel.py
+  /usr/lib/python2.4/site-packages/openbabel.pyc
+  /usr/lib/python2.4/site-packages/openbabel.pyo
+  /usr/lib/python2.4/site-packages/pybel.py
+  /usr/lib/python2.4/site-packages/pybel.pyc
+  /usr/lib/python2.4/site-packages/pybel.pyo
+
+(ruby-openbabel)
+  /usr/lib/ruby/site_ruby/1.8/i386-cygwin/openbabel.so
 
 ------------------
 
