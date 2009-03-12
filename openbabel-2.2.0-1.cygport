@@ -24,6 +24,7 @@ src_compile() {
 	cygautoreconf
 	cd ${B}
 	cygconf \
+		ac_cv_header_rpc_types_h=no ac_cv_header_rpc_xdr_h=no \
 		--disable-static \
 		--enable-inchi \
 		--enable-maintainer-mode \
@@ -50,12 +51,12 @@ src_compile() {
 		OTHERLDFLAGS="-L${B}/src/.libs -lopenbabel"
 
 	cd ${B}/scripts/python
-	CFLAGS="-g0 -I${S}/include" distutils_compile
+	CFLAGS="-g0 -I${B}/include -I${S}/include" LDFLAGS="-L${B}/src/.libs" distutils_compile
 
 	cd ${B}/scripts/ruby
 	${RUBY} extconf.rb || error "ruby extconf.rb failed"
 	cygmake \
-		CFLAGS="${CFLAGS} -I${S}/include" \
+		CFLAGS="${CFLAGS} -I${B}/include -I${S}/include" \
 		LDSHARED="g++ -shared -s" \
 		LIBPATH="-L${B}/src/.libs"
 }
@@ -77,6 +78,8 @@ src_install() {
 	cd ${B}
 	cyginstall
 
+	if false; then #################
+
 	cd ${B}/scripts/java
 	dobin *.dll
 	dojar *.jar
@@ -90,4 +93,6 @@ src_install() {
 
 	cd ${B}/scripts/ruby
 	ruby_install
+
+	fi ####################
 }
