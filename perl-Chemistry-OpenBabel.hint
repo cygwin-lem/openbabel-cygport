@@ -1,7 +1,7 @@
-category: Science
-requires: cygwin libinchi0 libxml2 zlib
+category: Science Perl
+requires: libgcc1 libopenbabel3 libstdc++6 perl
 external-source: openbabel
-sdesc: "Open Babel chemistry toolbox (runtime)"
+sdesc: "Perl bindings for the Open Babel chemistry toolkit"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

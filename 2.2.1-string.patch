@@ -1,0 +1,13 @@
+--- origsrc/openbabel-2.2.1/test/math.cpp	2008-12-01 11:42:15.000000000 -0600
++++ src/openbabel-2.2.1/test/math.cpp	2009-03-31 23:47:07.254109000 -0500
+@@ -31,6 +31,10 @@ GNU General Public License for more deta
+ #include <stdlib.h>
+ #include <string.h>
+ 
++#ifndef __STRING
++#define __STRING(x) #x
++#endif
++
+ #define REPEAT 1000
+ 
+ #define VERIFY(expr) \

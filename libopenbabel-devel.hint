@@ -1,7 +1,7 @@
-category: Science Java
-requires: cygwin libopenbabel2 classpath jamvm
+category: Science
+requires: libopenbabel3 libstdc++6-devel zlib-devel
 external-source: openbabel
-sdesc: "Java bindings for the Open Babel chemistry toolkit"
+sdesc: "Open Babel chemistry toolbox (development)"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

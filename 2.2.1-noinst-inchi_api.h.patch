@@ -1,0 +1,16 @@
+libinchi is no longer installed, so neither should this be.
+
+--- origsrc/openbabel-2.2.1/include/Makefile.am	2008-12-01 11:42:22.000000000 -0600
++++ src/openbabel-2.2.1/include/Makefile.am	2009-03-31 23:25:07.316609000 -0500
+@@ -3,10 +3,7 @@ SUBDIRS = openbabel
+ libopenbabelincludedir = $(includedir)/openbabel-2.0/openbabel
+ libopenbabelinclude_HEADERS = chemdrawcdx.h
+ 
+-if BUILD_INCHI
+-inchiincludedir = $(includedir)/inchi
+-inchiinclude_HEADERS = inchi_api.h
+-endif
++noinst_HEADERS = inchi_api.h
+ 
+ EXTRA_DIST = inchi OB-BGL RDKitConv.h CMakeLists.txt
+ # .svn directories will be cleaned up by top-level dist-hook

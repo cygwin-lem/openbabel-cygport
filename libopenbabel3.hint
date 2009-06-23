@@ -1,7 +1,7 @@
 category: Science
-requires: cygwin libxml2-devel zlib
+requires: libgcc1 libstdc++6 zlib0
 external-source: openbabel
-sdesc: "Open Babel chemistry toolbox (development)"
+sdesc: "Open Babel chemistry toolbox (runtime)"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

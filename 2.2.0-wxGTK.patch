@@ -1,0 +1,12 @@
+--- origsrc/openbabel-2.2.0/src/GUI/OBGUI.cpp	2008-06-21 08:57:58.000000000 -0500
++++ src/openbabel-2.2.0/src/GUI/OBGUI.cpp	2008-11-21 00:27:42.967099000 -0600
+@@ -101,7 +101,9 @@ OBGUIFrame::OBGUIFrame(const wxString& t
+ {
+   // set the frame icon
+   SetIcon(wxICON(sample));
++#ifndef __WXGTK__
+   DragAcceptFiles(true);
++#endif
+ 
+   wxConfig config("OpenBabelGUI");
+ 

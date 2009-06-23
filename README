@@ -6,32 +6,28 @@ search, convert, analyze, or store data from molecular modeling,
 chemistry, solid-state materials, biochemistry, or related areas.
 
 Runtime requirements:
-  cygwin-1.5.24-2
-  libxml2-2.6.28-2
-  zlib-1.2.3-2
-(java bindings)
-  classpath-0.93-1
-  jamvm-1.4.5-1
+  cygwin-1.7.0-50
+  libgcc1-4.3.2-2
+  libstdc++6-4.3.2-2
+  zlib0-1.2.3-10
 (perl bindings)
-  perl-5.8.7-5
+  perl-5.10.0-5
 (python bindings)
-  python-2.5.1-3
+  python-2.5.4-10
 (ruby bindings)
-  ruby-1.8.6-1
+  ruby-1.8.7_p72-10
 
 Build requirements:
 (besides corresponding -devel packages)
-  cygwin-1.5.24-2
-  autoconf2.5-2.61-1
-  automake1.9-1.9.6-2
-  binutils-20060817-1
-  fastjar-0.94-1
-  cygport-0.3.1-1
-  gawk-3.1.5-4
-  gcc-core-3.4.4-3
-  jikes-1.22-4
-  libtool1.5-1.5.23a-2
-  make-3.81-1
+  autoconf2.5-2.63-10
+  automake1.9-1.9.6-10
+  binutils-20080624-2
+  cygport-0.9.6-1
+  gawk-3.1.6-2
+  gcc4-core-4.3.2-2
+  gcc4-g++-4.3.2-2
+  libtool-2.2.7a-13
+  make-3.81-2
   sed-4.1.5-2
 
 Canonical website:
@@ -43,23 +39,20 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack openbabel-2.1.1-X-src.tar.bz2
+  unpack openbabel-2.2.1-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./openbabel-2.1.1-X.cygport all
+  cygport ./openbabel-2.2.1-X.cygport all
 
 This will create:
-  /usr/src/openbabel-2.1.1-X-src.tar.bz2
-  /usr/src/openbabel-2.1.1-X.tar.bz2
-  /usr/src/java-openbabel-2.1.1-X.tar.bz2
-  /usr/src/libinchi-devel-2.1.1-X.tar.bz2
-  /usr/src/libinchi0-2.1.1-X.tar.bz2
-  /usr/src/libopenbabel-devel-2.1.1-X.tar.bz2
-  /usr/src/libopenbabel2-2.1.1-X.tar.bz2
-  /usr/src/perl-Chemistry-OpenBabel-2.1.1-X.tar.bz2
-  /usr/src/python-openbabel-2.1.1-X.tar.bz2
-  /usr/src/ruby-openbabel-2.1.1-X.tar.bz2
+  /usr/src/openbabel-2.2.1-X-src.tar.bz2
+  /usr/src/openbabel-2.2.1-X.tar.bz2
+  /usr/src/libopenbabel-devel-2.2.1-X.tar.bz2
+  /usr/src/libopenbabel2-2.2.1-X.tar.bz2
+  /usr/src/perl-Chemistry-OpenBabel-2.2.1-X.tar.bz2
+  /usr/src/python-openbabel-2.2.1-X.tar.bz2
+  /usr/src/ruby-openbabel-2.2.1-X.tar.bz2
 
 -------------------------------------------
 
@@ -68,214 +61,110 @@ Files included in the binary packages:
 (openbabel)
   /usr/bin/babel.exe
   /usr/bin/obchiral.exe
+  /usr/bin/obconformer.exe
   /usr/bin/obenergy.exe
   /usr/bin/obfit.exe
+  /usr/bin/obgen.exe
   /usr/bin/obgrep.exe
   /usr/bin/obminimize.exe
+  /usr/bin/obprobe.exe
   /usr/bin/obprop.exe
   /usr/bin/obrotamer.exe
   /usr/bin/obrotate.exe
   /usr/bin/roundtrip.exe
-  /usr/share/doc/Cygwin/openbabel-2.1.1.README
-  /usr/share/doc/openbabel-2.1.1/AUTHORS
-  /usr/share/doc/openbabel-2.1.1/COPYING
-  /usr/share/doc/openbabel-2.1.1/ChangeLog
-  /usr/share/doc/openbabel-2.1.1/INSTALL
-  /usr/share/doc/openbabel-2.1.1/NEWS
-  /usr/share/doc/openbabel-2.1.1/README
-  /usr/share/doc/openbabel-2.1.1/THANKS
+  /usr/share/doc/openbabel/AUTHORS
+  /usr/share/doc/openbabel/COPYING
+  /usr/share/doc/openbabel/ChangeLog
+  /usr/share/doc/openbabel/NEWS
+  /usr/share/doc/openbabel/README
+  /usr/share/doc/openbabel/THANKS
   /usr/share/man/man1/babel.1.gz
   /usr/share/man/man1/obchiral.1.gz
+  /usr/share/man/man1/obconformer.1.gz
+  /usr/share/man/man1/obenergy.1.gz
   /usr/share/man/man1/obfit.1.gz
+  /usr/share/man/man1/obgen.1.gz
   /usr/share/man/man1/obgrep.1.gz
+  /usr/share/man/man1/obminimize.1.gz
+  /usr/share/man/man1/obprobe.1.gz
   /usr/share/man/man1/obprop.1.gz
+  /usr/share/man/man1/obrotamer.1.gz
   /usr/share/man/man1/obrotate.1.gz
-  /usr/share/openbabel/2.1.1/SMARTS_InteLigand.txt
-  /usr/share/openbabel/2.1.1/aromatic.txt
-  /usr/share/openbabel/2.1.1/atomtyp.txt
-  /usr/share/openbabel/2.1.1/bondtyp.txt
-  /usr/share/openbabel/2.1.1/element.txt
-  /usr/share/openbabel/2.1.1/ghemical.prm
-  /usr/share/openbabel/2.1.1/isotope-small.txt
-  /usr/share/openbabel/2.1.1/isotope.txt
-  /usr/share/openbabel/2.1.1/logp.txt
-  /usr/share/openbabel/2.1.1/mr.txt
-  /usr/share/openbabel/2.1.1/patterns.txt
-  /usr/share/openbabel/2.1.1/phmodel.txt
-  /usr/share/openbabel/2.1.1/psa.txt
-  /usr/share/openbabel/2.1.1/resdata.txt
-  /usr/share/openbabel/2.1.1/torlib.txt
-  /usr/share/openbabel/2.1.1/types.txt
+  /usr/share/man/man1/roundtrip.1.gz
 
-(libinchi0)
-  /usr/bin/cyginchi-0.dll
 
-(libopenbabel2)
-  /usr/bin/cygopenbabel-2.dll
-  /usr/lib/openbabel/2.1.1/APIInterface.dll
-  /usr/lib/openbabel/2.1.1/APIInterface.la
-  /usr/lib/openbabel/2.1.1/CSRformat.dll
-  /usr/lib/openbabel/2.1.1/CSRformat.la
-  /usr/lib/openbabel/2.1.1/PQSformat.dll
-  /usr/lib/openbabel/2.1.1/PQSformat.la
-  /usr/lib/openbabel/2.1.1/acrformat.dll
-  /usr/lib/openbabel/2.1.1/acrformat.la
-  /usr/lib/openbabel/2.1.1/alchemyformat.dll
-  /usr/lib/openbabel/2.1.1/alchemyformat.la
-  /usr/lib/openbabel/2.1.1/amberformat.dll
-  /usr/lib/openbabel/2.1.1/amberformat.la
-  /usr/lib/openbabel/2.1.1/balstformat.dll
-  /usr/lib/openbabel/2.1.1/balstformat.la
-  /usr/lib/openbabel/2.1.1/bgfformat.dll
-  /usr/lib/openbabel/2.1.1/bgfformat.la
-  /usr/lib/openbabel/2.1.1/boxformat.dll
-  /usr/lib/openbabel/2.1.1/boxformat.la
-  /usr/lib/openbabel/2.1.1/cacaoformat.dll
-  /usr/lib/openbabel/2.1.1/cacaoformat.la
-  /usr/lib/openbabel/2.1.1/cacheformat.dll
-  /usr/lib/openbabel/2.1.1/cacheformat.la
-  /usr/lib/openbabel/2.1.1/cansmilesformat.dll
-  /usr/lib/openbabel/2.1.1/cansmilesformat.la
-  /usr/lib/openbabel/2.1.1/carformat.dll
-  /usr/lib/openbabel/2.1.1/carformat.la
-  /usr/lib/openbabel/2.1.1/cccformat.dll
-  /usr/lib/openbabel/2.1.1/cccformat.la
-  /usr/lib/openbabel/2.1.1/cdxmlformat.dll
-  /usr/lib/openbabel/2.1.1/cdxmlformat.la
-  /usr/lib/openbabel/2.1.1/chem3dformat.dll
-  /usr/lib/openbabel/2.1.1/chem3dformat.la
-  /usr/lib/openbabel/2.1.1/chemdrawcdxformat.dll
-  /usr/lib/openbabel/2.1.1/chemdrawcdxformat.la
-  /usr/lib/openbabel/2.1.1/chemdrawctformat.dll
-  /usr/lib/openbabel/2.1.1/chemdrawctformat.la
-  /usr/lib/openbabel/2.1.1/chemtoolformat.dll
-  /usr/lib/openbabel/2.1.1/chemtoolformat.la
-  /usr/lib/openbabel/2.1.1/cifformat.dll
-  /usr/lib/openbabel/2.1.1/cifformat.la
-  /usr/lib/openbabel/2.1.1/cmlformat.dll
-  /usr/lib/openbabel/2.1.1/cmlformat.la
-  /usr/lib/openbabel/2.1.1/cmlreactlformat.dll
-  /usr/lib/openbabel/2.1.1/cmlreactlformat.la
-  /usr/lib/openbabel/2.1.1/copyformat.dll
-  /usr/lib/openbabel/2.1.1/copyformat.la
-  /usr/lib/openbabel/2.1.1/crkformat.dll
-  /usr/lib/openbabel/2.1.1/crkformat.la
-  /usr/lib/openbabel/2.1.1/cssrformat.dll
-  /usr/lib/openbabel/2.1.1/cssrformat.la
-  /usr/lib/openbabel/2.1.1/dmolformat.dll
-  /usr/lib/openbabel/2.1.1/dmolformat.la
-  /usr/lib/openbabel/2.1.1/fastaformat.dll
-  /usr/lib/openbabel/2.1.1/fastaformat.la
-  /usr/lib/openbabel/2.1.1/fastsearchformat.dll
-  /usr/lib/openbabel/2.1.1/fastsearchformat.la
-  /usr/lib/openbabel/2.1.1/fchkformat.dll
-  /usr/lib/openbabel/2.1.1/fchkformat.la
-  /usr/lib/openbabel/2.1.1/featformat.dll
-  /usr/lib/openbabel/2.1.1/featformat.la
-  /usr/lib/openbabel/2.1.1/fhformat.dll
-  /usr/lib/openbabel/2.1.1/fhformat.la
-  /usr/lib/openbabel/2.1.1/fingerprintformat.dll
-  /usr/lib/openbabel/2.1.1/fingerprintformat.la
-  /usr/lib/openbabel/2.1.1/freefracformat.dll
-  /usr/lib/openbabel/2.1.1/freefracformat.la
-  /usr/lib/openbabel/2.1.1/gamessformat.dll
-  /usr/lib/openbabel/2.1.1/gamessformat.la
-  /usr/lib/openbabel/2.1.1/gaussformat.dll
-  /usr/lib/openbabel/2.1.1/gaussformat.la
-  /usr/lib/openbabel/2.1.1/ghemicalformat.dll
-  /usr/lib/openbabel/2.1.1/ghemicalformat.la
-  /usr/lib/openbabel/2.1.1/gromos96format.dll
-  /usr/lib/openbabel/2.1.1/gromos96format.la
-  /usr/lib/openbabel/2.1.1/hinformat.dll
-  /usr/lib/openbabel/2.1.1/hinformat.la
-  /usr/lib/openbabel/2.1.1/inchiformat.dll
-  /usr/lib/openbabel/2.1.1/inchiformat.la
-  /usr/lib/openbabel/2.1.1/jaguarformat.dll
-  /usr/lib/openbabel/2.1.1/jaguarformat.la
-  /usr/lib/openbabel/2.1.1/mdlformat.dll
-  /usr/lib/openbabel/2.1.1/mdlformat.la
-  /usr/lib/openbabel/2.1.1/mmodformat.dll
-  /usr/lib/openbabel/2.1.1/mmodformat.la
-  /usr/lib/openbabel/2.1.1/mol2format.dll
-  /usr/lib/openbabel/2.1.1/mol2format.la
-  /usr/lib/openbabel/2.1.1/molreportformat.dll
-  /usr/lib/openbabel/2.1.1/molreportformat.la
-  /usr/lib/openbabel/2.1.1/mopacformat.dll
-  /usr/lib/openbabel/2.1.1/mopacformat.la
-  /usr/lib/openbabel/2.1.1/mpdformat.dll
-  /usr/lib/openbabel/2.1.1/mpdformat.la
-  /usr/lib/openbabel/2.1.1/mpqcformat.dll
-  /usr/lib/openbabel/2.1.1/mpqcformat.la
-  /usr/lib/openbabel/2.1.1/nwchemformat.dll
-  /usr/lib/openbabel/2.1.1/nwchemformat.la
-  /usr/lib/openbabel/2.1.1/pcmodelformat.dll
-  /usr/lib/openbabel/2.1.1/pcmodelformat.la
-  /usr/lib/openbabel/2.1.1/pdbformat.dll
-  /usr/lib/openbabel/2.1.1/pdbformat.la
-  /usr/lib/openbabel/2.1.1/povrayformat.dll
-  /usr/lib/openbabel/2.1.1/povrayformat.la
-  /usr/lib/openbabel/2.1.1/pubchem.dll
-  /usr/lib/openbabel/2.1.1/pubchem.la
-  /usr/lib/openbabel/2.1.1/qchemformat.dll
-  /usr/lib/openbabel/2.1.1/qchemformat.la
-  /usr/lib/openbabel/2.1.1/reportformat.dll
-  /usr/lib/openbabel/2.1.1/reportformat.la
-  /usr/lib/openbabel/2.1.1/rxnformat.dll
-  /usr/lib/openbabel/2.1.1/rxnformat.la
-  /usr/lib/openbabel/2.1.1/shelxformat.dll
-  /usr/lib/openbabel/2.1.1/shelxformat.la
-  /usr/lib/openbabel/2.1.1/smilesformat.dll
-  /usr/lib/openbabel/2.1.1/smilesformat.la
-  /usr/lib/openbabel/2.1.1/thermoformat.dll
-  /usr/lib/openbabel/2.1.1/thermoformat.la
-  /usr/lib/openbabel/2.1.1/tinkerformat.dll
-  /usr/lib/openbabel/2.1.1/tinkerformat.la
-  /usr/lib/openbabel/2.1.1/titleformat.dll
-  /usr/lib/openbabel/2.1.1/titleformat.la
-  /usr/lib/openbabel/2.1.1/turbomoleformat.dll
-  /usr/lib/openbabel/2.1.1/turbomoleformat.la
-  /usr/lib/openbabel/2.1.1/unichemformat.dll
-  /usr/lib/openbabel/2.1.1/unichemformat.la
-  /usr/lib/openbabel/2.1.1/viewmolformat.dll
-  /usr/lib/openbabel/2.1.1/viewmolformat.la
-  /usr/lib/openbabel/2.1.1/xedformat.dll
-  /usr/lib/openbabel/2.1.1/xedformat.la
-  /usr/lib/openbabel/2.1.1/xmlformat.dll
-  /usr/lib/openbabel/2.1.1/xmlformat.la
-  /usr/lib/openbabel/2.1.1/xyzformat.dll
-  /usr/lib/openbabel/2.1.1/xyzformat.la
-  /usr/lib/openbabel/2.1.1/yasaraformat.dll
-  /usr/lib/openbabel/2.1.1/yasaraformat.la
-  /usr/lib/openbabel/2.1.1/zindoformat.dll
-  /usr/lib/openbabel/2.1.1/zindoformat.la
-
-(libinchi-devel)
-  /usr/include/inchi/inchi_api.h
-  /usr/lib/libinchi.dll.a
-  /usr/lib/libinchi.la
+(libopenbabel3)
+  /usr/bin/cygopenbabel-3.dll
+  /usr/share/openbabel/2.2.1/MACCS.txt
+  /usr/share/openbabel/2.2.1/SMARTS_InteLigand.txt
+  /usr/share/openbabel/2.2.1/UFF.prm
+  /usr/share/openbabel/2.2.1/aromatic.txt
+  /usr/share/openbabel/2.2.1/atomtyp.txt
+  /usr/share/openbabel/2.2.1/bondtyp.txt
+  /usr/share/openbabel/2.2.1/element.txt
+  /usr/share/openbabel/2.2.1/fragments.txt
+  /usr/share/openbabel/2.2.1/ghemical.prm
+  /usr/share/openbabel/2.2.1/isotope-small.txt
+  /usr/share/openbabel/2.2.1/isotope.txt
+  /usr/share/openbabel/2.2.1/logp.txt
+  /usr/share/openbabel/2.2.1/mmff94.ff
+  /usr/share/openbabel/2.2.1/mmff94s.ff
+  /usr/share/openbabel/2.2.1/mmffang.par
+  /usr/share/openbabel/2.2.1/mmffbndk.par
+  /usr/share/openbabel/2.2.1/mmffbond.par
+  /usr/share/openbabel/2.2.1/mmffchg.par
+  /usr/share/openbabel/2.2.1/mmffdef.par
+  /usr/share/openbabel/2.2.1/mmffdfsb.par
+  /usr/share/openbabel/2.2.1/mmffoop.par
+  /usr/share/openbabel/2.2.1/mmffpbci.par
+  /usr/share/openbabel/2.2.1/mmffprop.par
+  /usr/share/openbabel/2.2.1/mmffs_oop.par
+  /usr/share/openbabel/2.2.1/mmffs_tor.par
+  /usr/share/openbabel/2.2.1/mmffstbn.par
+  /usr/share/openbabel/2.2.1/mmfftor.par
+  /usr/share/openbabel/2.2.1/mmffvdw.par
+  /usr/share/openbabel/2.2.1/mr.txt
+  /usr/share/openbabel/2.2.1/patterns.txt
+  /usr/share/openbabel/2.2.1/phmodel.txt
+  /usr/share/openbabel/2.2.1/plugindefines.txt
+  /usr/share/openbabel/2.2.1/psa.txt
+  /usr/share/openbabel/2.2.1/resdata.txt
+  /usr/share/openbabel/2.2.1/ringtyp.txt
+  /usr/share/openbabel/2.2.1/space-groups.txt
+  /usr/share/openbabel/2.2.1/torlib.txt
+  /usr/share/openbabel/2.2.1/types.txt
 
 (libopenbabel-devel)
+  /usr/include/openbabel-2.0/openbabel/alias.h
   /usr/include/openbabel-2.0/openbabel/atom.h
+  /usr/include/openbabel-2.0/openbabel/atomclass.h
   /usr/include/openbabel-2.0/openbabel/babelconfig.h
   /usr/include/openbabel-2.0/openbabel/base.h
   /usr/include/openbabel-2.0/openbabel/bitvec.h
   /usr/include/openbabel-2.0/openbabel/bond.h
   /usr/include/openbabel-2.0/openbabel/bondtyper.h
+  /usr/include/openbabel-2.0/openbabel/builder.h
   /usr/include/openbabel-2.0/openbabel/canon.h
   /usr/include/openbabel-2.0/openbabel/chains.h
   /usr/include/openbabel-2.0/openbabel/chemdrawcdx.h
   /usr/include/openbabel-2.0/openbabel/chiral.h
   /usr/include/openbabel-2.0/openbabel/data.h
+  /usr/include/openbabel-2.0/openbabel/descriptor.h
   /usr/include/openbabel-2.0/openbabel/dlhandler.h
   /usr/include/openbabel-2.0/openbabel/fingerprint.h
   /usr/include/openbabel-2.0/openbabel/forcefield.h
+  /usr/include/openbabel-2.0/openbabel/format.h
   /usr/include/openbabel-2.0/openbabel/generic.h
   /usr/include/openbabel-2.0/openbabel/grid.h
+  /usr/include/openbabel-2.0/openbabel/griddata.h
   /usr/include/openbabel-2.0/openbabel/groupcontrib.h
   /usr/include/openbabel-2.0/openbabel/internalcoord.h
   /usr/include/openbabel-2.0/openbabel/kinetics.h
   /usr/include/openbabel-2.0/openbabel/lineend.h
+  /usr/include/openbabel-2.0/openbabel/locale.h
   /usr/include/openbabel-2.0/openbabel/math/matrix3x3.h
+  /usr/include/openbabel-2.0/openbabel/math/spacegroup.h
+  /usr/include/openbabel-2.0/openbabel/math/transform3d.h
   /usr/include/openbabel-2.0/openbabel/math/vector3.h
   /usr/include/openbabel-2.0/openbabel/matrix.h
   /usr/include/openbabel-2.0/openbabel/mol.h
@@ -285,33 +174,30 @@ Files included in the binary packages:
   /usr/include/openbabel-2.0/openbabel/obiter.h
   /usr/include/openbabel-2.0/openbabel/obmolecformat.h
   /usr/include/openbabel-2.0/openbabel/obutil.h
+  /usr/include/openbabel-2.0/openbabel/op.h
+  /usr/include/openbabel-2.0/openbabel/optransform.h
   /usr/include/openbabel-2.0/openbabel/parsmart.h
   /usr/include/openbabel-2.0/openbabel/patty.h
   /usr/include/openbabel-2.0/openbabel/phmodel.h
-  /usr/include/openbabel-2.0/openbabel/pluginiter.h
+  /usr/include/openbabel-2.0/openbabel/plugin.h
+  /usr/include/openbabel-2.0/openbabel/pointgroup.h
   /usr/include/openbabel-2.0/openbabel/rand.h
   /usr/include/openbabel-2.0/openbabel/reaction.h
   /usr/include/openbabel-2.0/openbabel/residue.h
   /usr/include/openbabel-2.0/openbabel/ring.h
   /usr/include/openbabel-2.0/openbabel/rotamer.h
   /usr/include/openbabel-2.0/openbabel/rotor.h
+  /usr/include/openbabel-2.0/openbabel/tokenst.h
   /usr/include/openbabel-2.0/openbabel/typer.h
   /usr/include/openbabel-2.0/openbabel/xml.h
   /usr/lib/libopenbabel.dll.a
   /usr/lib/libopenbabel.la
   /usr/lib/pkgconfig/openbabel-2.0.pc
 
-(java-openbabel)
-  /usr/bin/cygopenbabeljni.dll
-  /usr/share/java/openbabel.jar
-
 (perl-Chemistry-OpenBabel)
-  /etc/postinstall/openbabel.sh
   /usr/lib/perl5/vendor_perl/5.8/cygwin/Chemistry/OpenBabel.pm
   /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/.packlist
-  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/OpenBabel.bs
   /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/OpenBabel.dll
-  /usr/share/perl/cygwin-pods/5.8/openbabel.pod
 
 (python-openbabel)
   /usr/lib/python2.5/site-packages/_openbabel.dll
@@ -329,11 +215,8 @@ Files included in the binary packages:
 
 Port Notes:
 
------ version 2.1.1-1 -----
-Version bump.
-
------ version 2.1.0-1 -----
-Initial release for Cygwin.
+----- version 2.2.1-1 -----
+Initial release for Cygwin 1.7.
 
 
 Cygwin port maintained by:
