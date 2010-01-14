@@ -6,27 +6,26 @@ search, convert, analyze, or store data from molecular modeling,
 chemistry, solid-state materials, biochemistry, or related areas.
 
 Runtime requirements:
-  cygwin-1.7.0-50
-  libgcc1-4.3.2-2
-  libstdc++6-4.3.2-2
+  cygwin-1.7.1-1
+  libgcc1-4.3.4-3
+  libstdc++6-4.3.4-3
   zlib0-1.2.3-10
-(perl bindings)
-  perl-5.10.0-5
-(python bindings)
+(bindings)
+  mono-2.4.3.1-1
+  perl-5.10.1-2
   python-2.5.4-10
-(ruby bindings)
   ruby-1.8.7_p72-10
 
 Build requirements:
 (besides corresponding -devel packages)
-  autoconf2.5-2.63-10
-  automake1.9-1.9.6-10
-  binutils-20080624-2
-  cygport-0.9.6-1
-  gawk-3.1.6-2
-  gcc4-core-4.3.2-2
-  gcc4-g++-4.3.2-2
-  libtool-2.2.7a-13
+  autoconf2.5-2.65-1
+  automake1.11-1.11.1-1
+  binutils-2.19.51-1
+  cygport-0.9.80-1
+  gawk-3.1.7-1
+  gcc4-core-4.3.4-3
+  gcc4-g++-4.3.4-3
+  libtool-2.2.7a-15
   make-3.81-2
   sed-4.1.5-2
 
@@ -39,181 +38,28 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack openbabel-2.2.1-X-src.tar.bz2
+  unpack openbabel-2.2.3-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./openbabel-2.2.1-X.cygport all
+  cygport ./openbabel-2.2.3-X.cygport all
 
 This will create:
-  /usr/src/openbabel-2.2.1-X-src.tar.bz2
-  /usr/src/openbabel-2.2.1-X.tar.bz2
-  /usr/src/libopenbabel-devel-2.2.1-X.tar.bz2
-  /usr/src/libopenbabel2-2.2.1-X.tar.bz2
-  /usr/src/perl-Chemistry-OpenBabel-2.2.1-X.tar.bz2
-  /usr/src/python-openbabel-2.2.1-X.tar.bz2
-  /usr/src/ruby-openbabel-2.2.1-X.tar.bz2
+  /usr/src/openbabel-2.2.3-X-src.tar.bz2
+  /usr/src/openbabel-2.2.3-X.tar.bz2
+  /usr/src/libopenbabel-devel-2.2.3-X.tar.bz2
+  /usr/src/libopenbabel3-2.2.3-X.tar.bz2
+  /usr/src/mono-OBDotNet-2.2.3-X.tar.bz2
+  /usr/src/perl-Chemistry-OpenBabel-2.2.3-X.tar.bz2
+  /usr/src/python-openbabel-2.2.3-X.tar.bz2
+  /usr/src/ruby-openbabel-2.2.3-X.tar.bz2
 
 -------------------------------------------
 
-Files included in the binary packages:
-
-(openbabel)
-  /usr/bin/babel.exe
-  /usr/bin/obchiral.exe
-  /usr/bin/obconformer.exe
-  /usr/bin/obenergy.exe
-  /usr/bin/obfit.exe
-  /usr/bin/obgen.exe
-  /usr/bin/obgrep.exe
-  /usr/bin/obminimize.exe
-  /usr/bin/obprobe.exe
-  /usr/bin/obprop.exe
-  /usr/bin/obrotamer.exe
-  /usr/bin/obrotate.exe
-  /usr/bin/roundtrip.exe
-  /usr/share/doc/openbabel/AUTHORS
-  /usr/share/doc/openbabel/COPYING
-  /usr/share/doc/openbabel/ChangeLog
-  /usr/share/doc/openbabel/NEWS
-  /usr/share/doc/openbabel/README
-  /usr/share/doc/openbabel/THANKS
-  /usr/share/man/man1/babel.1.gz
-  /usr/share/man/man1/obchiral.1.gz
-  /usr/share/man/man1/obconformer.1.gz
-  /usr/share/man/man1/obenergy.1.gz
-  /usr/share/man/man1/obfit.1.gz
-  /usr/share/man/man1/obgen.1.gz
-  /usr/share/man/man1/obgrep.1.gz
-  /usr/share/man/man1/obminimize.1.gz
-  /usr/share/man/man1/obprobe.1.gz
-  /usr/share/man/man1/obprop.1.gz
-  /usr/share/man/man1/obrotamer.1.gz
-  /usr/share/man/man1/obrotate.1.gz
-  /usr/share/man/man1/roundtrip.1.gz
-
-
-(libopenbabel3)
-  /usr/bin/cygopenbabel-3.dll
-  /usr/share/openbabel/2.2.1/MACCS.txt
-  /usr/share/openbabel/2.2.1/SMARTS_InteLigand.txt
-  /usr/share/openbabel/2.2.1/UFF.prm
-  /usr/share/openbabel/2.2.1/aromatic.txt
-  /usr/share/openbabel/2.2.1/atomtyp.txt
-  /usr/share/openbabel/2.2.1/bondtyp.txt
-  /usr/share/openbabel/2.2.1/element.txt
-  /usr/share/openbabel/2.2.1/fragments.txt
-  /usr/share/openbabel/2.2.1/ghemical.prm
-  /usr/share/openbabel/2.2.1/isotope-small.txt
-  /usr/share/openbabel/2.2.1/isotope.txt
-  /usr/share/openbabel/2.2.1/logp.txt
-  /usr/share/openbabel/2.2.1/mmff94.ff
-  /usr/share/openbabel/2.2.1/mmff94s.ff
-  /usr/share/openbabel/2.2.1/mmffang.par
-  /usr/share/openbabel/2.2.1/mmffbndk.par
-  /usr/share/openbabel/2.2.1/mmffbond.par
-  /usr/share/openbabel/2.2.1/mmffchg.par
-  /usr/share/openbabel/2.2.1/mmffdef.par
-  /usr/share/openbabel/2.2.1/mmffdfsb.par
-  /usr/share/openbabel/2.2.1/mmffoop.par
-  /usr/share/openbabel/2.2.1/mmffpbci.par
-  /usr/share/openbabel/2.2.1/mmffprop.par
-  /usr/share/openbabel/2.2.1/mmffs_oop.par
-  /usr/share/openbabel/2.2.1/mmffs_tor.par
-  /usr/share/openbabel/2.2.1/mmffstbn.par
-  /usr/share/openbabel/2.2.1/mmfftor.par
-  /usr/share/openbabel/2.2.1/mmffvdw.par
-  /usr/share/openbabel/2.2.1/mr.txt
-  /usr/share/openbabel/2.2.1/patterns.txt
-  /usr/share/openbabel/2.2.1/phmodel.txt
-  /usr/share/openbabel/2.2.1/plugindefines.txt
-  /usr/share/openbabel/2.2.1/psa.txt
-  /usr/share/openbabel/2.2.1/resdata.txt
-  /usr/share/openbabel/2.2.1/ringtyp.txt
-  /usr/share/openbabel/2.2.1/space-groups.txt
-  /usr/share/openbabel/2.2.1/torlib.txt
-  /usr/share/openbabel/2.2.1/types.txt
-
-(libopenbabel-devel)
-  /usr/include/openbabel-2.0/openbabel/alias.h
-  /usr/include/openbabel-2.0/openbabel/atom.h
-  /usr/include/openbabel-2.0/openbabel/atomclass.h
-  /usr/include/openbabel-2.0/openbabel/babelconfig.h
-  /usr/include/openbabel-2.0/openbabel/base.h
-  /usr/include/openbabel-2.0/openbabel/bitvec.h
-  /usr/include/openbabel-2.0/openbabel/bond.h
-  /usr/include/openbabel-2.0/openbabel/bondtyper.h
-  /usr/include/openbabel-2.0/openbabel/builder.h
-  /usr/include/openbabel-2.0/openbabel/canon.h
-  /usr/include/openbabel-2.0/openbabel/chains.h
-  /usr/include/openbabel-2.0/openbabel/chemdrawcdx.h
-  /usr/include/openbabel-2.0/openbabel/chiral.h
-  /usr/include/openbabel-2.0/openbabel/data.h
-  /usr/include/openbabel-2.0/openbabel/descriptor.h
-  /usr/include/openbabel-2.0/openbabel/dlhandler.h
-  /usr/include/openbabel-2.0/openbabel/fingerprint.h
-  /usr/include/openbabel-2.0/openbabel/forcefield.h
-  /usr/include/openbabel-2.0/openbabel/format.h
-  /usr/include/openbabel-2.0/openbabel/generic.h
-  /usr/include/openbabel-2.0/openbabel/grid.h
-  /usr/include/openbabel-2.0/openbabel/griddata.h
-  /usr/include/openbabel-2.0/openbabel/groupcontrib.h
-  /usr/include/openbabel-2.0/openbabel/internalcoord.h
-  /usr/include/openbabel-2.0/openbabel/kinetics.h
-  /usr/include/openbabel-2.0/openbabel/lineend.h
-  /usr/include/openbabel-2.0/openbabel/locale.h
-  /usr/include/openbabel-2.0/openbabel/math/matrix3x3.h
-  /usr/include/openbabel-2.0/openbabel/math/spacegroup.h
-  /usr/include/openbabel-2.0/openbabel/math/transform3d.h
-  /usr/include/openbabel-2.0/openbabel/math/vector3.h
-  /usr/include/openbabel-2.0/openbabel/matrix.h
-  /usr/include/openbabel-2.0/openbabel/mol.h
-  /usr/include/openbabel-2.0/openbabel/molchrg.h
-  /usr/include/openbabel-2.0/openbabel/obconversion.h
-  /usr/include/openbabel-2.0/openbabel/oberror.h
-  /usr/include/openbabel-2.0/openbabel/obiter.h
-  /usr/include/openbabel-2.0/openbabel/obmolecformat.h
-  /usr/include/openbabel-2.0/openbabel/obutil.h
-  /usr/include/openbabel-2.0/openbabel/op.h
-  /usr/include/openbabel-2.0/openbabel/optransform.h
-  /usr/include/openbabel-2.0/openbabel/parsmart.h
-  /usr/include/openbabel-2.0/openbabel/patty.h
-  /usr/include/openbabel-2.0/openbabel/phmodel.h
-  /usr/include/openbabel-2.0/openbabel/plugin.h
-  /usr/include/openbabel-2.0/openbabel/pointgroup.h
-  /usr/include/openbabel-2.0/openbabel/rand.h
-  /usr/include/openbabel-2.0/openbabel/reaction.h
-  /usr/include/openbabel-2.0/openbabel/residue.h
-  /usr/include/openbabel-2.0/openbabel/ring.h
-  /usr/include/openbabel-2.0/openbabel/rotamer.h
-  /usr/include/openbabel-2.0/openbabel/rotor.h
-  /usr/include/openbabel-2.0/openbabel/tokenst.h
-  /usr/include/openbabel-2.0/openbabel/typer.h
-  /usr/include/openbabel-2.0/openbabel/xml.h
-  /usr/lib/libopenbabel.dll.a
-  /usr/lib/libopenbabel.la
-  /usr/lib/pkgconfig/openbabel-2.0.pc
-
-(perl-Chemistry-OpenBabel)
-  /usr/lib/perl5/vendor_perl/5.8/cygwin/Chemistry/OpenBabel.pm
-  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/.packlist
-  /usr/lib/perl5/vendor_perl/5.8/cygwin/auto/Chemistry/OpenBabel/OpenBabel.dll
-
-(python-openbabel)
-  /usr/lib/python2.5/site-packages/_openbabel.dll
-  /usr/lib/python2.5/site-packages/openbabel.py
-  /usr/lib/python2.5/site-packages/openbabel.pyc
-  /usr/lib/python2.5/site-packages/openbabel.pyo
-  /usr/lib/python2.5/site-packages/pybel.py
-  /usr/lib/python2.5/site-packages/pybel.pyc
-  /usr/lib/python2.5/site-packages/pybel.pyo
-
-(ruby-openbabel)
-  /usr/lib/ruby/site_ruby/1.8/i386-cygwin/openbabel.so
-
-------------------
-
 Port Notes:
+
+----- version 2.2.3-1 -----
+Version bump.  Added Mono bindings.
 
 ----- version 2.2.1-1 -----
 Initial release for Cygwin 1.7.

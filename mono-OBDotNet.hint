@@ -1,7 +1,7 @@
-category: Science Java
-requires: libgcc1 libopenbabel3 libstdc++6
+category: Science DotNET
+requires: libgcc1 libopenbabel3 libstdc++6 mono
 external-source: openbabel
-sdesc: "Java bindings for the Open Babel chemistry toolkit"
+sdesc: ".NET bindings for the Open Babel chemistry toolkit"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

@@ -1,0 +1,176 @@
+# java: segfaults
+
+# wxbabel written only for ANSI
+#WX_VERSION=2.8
+#WX_CODESET=ansi
+
+inherit mono perl distutils ruby # java wxwidgets
+
+DESCRIPTION="Open Babel chemistry toolkit"
+HOMEPAGE="http://openbabel.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+PATCH_URI="2.2.3-noinst-inchi_api.h.patch
+           2.2.1-string.patch"
+#          2.2.0-wxGTK.patch
+
+PKG_NAMES="${PN} lib${PN}3 lib${PN}-devel mono-OBDotNet \
+           perl-Chemistry-OpenBabel python-${PN} ruby-${PN}" # java-${PN}
+openbabel_CONTENTS="usr/bin/*.exe usr/share/doc/ usr/share/man/"
+libopenbabel3_CONTENTS="usr/bin/cyg${PN}-3.dll usr/share/${PN}/"
+libopenbabel_devel_CONTENTS="usr/include/${PN}* usr/lib/lib${PN}.* usr/lib/pkgconfig/"
+java_openbabel_CONTENTS='usr/bin/*java.dll usr/share/java/'
+mono_OBDotNet_CONTENTS="usr/bin/*sharp.dll usr/lib/mono/"
+perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORLIB#/}
+python_openbabel_CONTENTS=${PYTHON_SITELIB#/}
+ruby_openbabel_CONTENTS=${RUBY_SITELIB#/}
+
+DIFF_EXCLUDES="scripts"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	cd ${B}
+	cygconf \
+		ac_cv_header_rpc_types_h=no ac_cv_header_rpc_xdr_h=no \
+		--disable-dynamic-modules \
+		--enable-inchi \
+		--enable-maintainer-mode \
+		--disable-wx-gui  # --with-wx-config=${WX_CONFIG}
+
+	lndirs ${S}/scripts ${B}/scripts
+	cygmake
+
+	if inherited mono
+	then
+		cd ${B}/scripts/csharp
+		verbose ${CXX} -shared ${CXXFLAGS} -DSWIGSTDCALL=__cdecl -I${B}/include -I${S}/include \
+			-o cygopenbabelcsharp.dll openbabel_csharp.cpp \
+			-L${B}/src/.libs -lopenbabel || error "CSharp glue compile failed"
+	fi
+
+	if inherited java
+	then
+		cd ${B}/scripts/java
+		verbose ${CXX} -shared ${CXXFLAGS} -I${B}/include -I${S}/include \
+			-o cygopenbabel_java.dll openbabel_java.cpp \
+			-L${B}/src/.libs -lopenbabel || error "JNI compile failed"
+	fi
+
+	if inherited perl
+	then
+		cd ${B}/scripts/perl
+		LD_LIBRARY_PATH="${B}/src/.libs" \
+		${PERL} Makefile.PL INSTALLDIRS=vendor || error "perl Makefile.PL failed"
+		cygmake \
+			INC="-I${B}/include -I${S}/include" \
+			OTHERLDFLAGS="${LDFLAGS} -L${B}/src/.libs -lopenbabel"
+	fi
+
+	if inherited python
+	then
+		cd ${B}/scripts/python
+		CFLAGS="-I${B}/include -I${S}/include" \
+		LDFLAGS="${LDFLAGS} -L${B}/src/.libs" \
+		distutils_compile
+	fi
+
+	if inherited ruby
+	then
+		cd ${B}/scripts/ruby
+		${RUBY} extconf.rb \
+			--with-openbabel-include="${S}/include" \
+			--with-openbabel-lib="${B}/src/.libs" \
+			|| error "ruby extconf.rb failed"
+		cygmake \
+			CFLAGS="${CFLAGS} -I${B}/include -I${S}/include" \
+			LDSHARED="g++ -shared -s ${LDFLAGS}" \
+			LIBPATH="-L${B}/src/.libs"
+	fi
+}
+
+src_test() {
+	export PATH=".:${B}/src/.libs:${PATH}"
+
+	cd ${B}
+	cygtest
+
+	if inherited mono
+	then
+		inform "Testing CSharp bindings..."
+		cd ${B}/scripts/csharp
+		${GMCS} -target:exe -out:example.exe example.cs -r:./OBDotNet.dll
+		${MONO} example.exe
+	fi
+
+	if inherited java
+	then
+		inform "Testing Java bindings..."
+		cd ${B}/scripts/java
+		cygjavac -classpath openbabel.jar OBTest.java
+		cygjava -classpath openbabel.jar:. OBTest
+	fi
+
+	if inherited perl
+	then
+		inform "Testing Perl bindings..."
+		cd ${B}/scripts/perl
+		perl_test
+	fi
+
+	if inherited python
+	then
+		inform "Testing Python bindings..."
+		cd ${B}/scripts/python
+		PYTHONPATH=build/lib.cygwin-$(uname -r | sed 's|(.*||')-$(arch)-${PYTHON_VERSION} \
+		${PYTHON} examples/examples.py
+	fi
+
+	if inherited ruby
+	then
+		inform "Testing Ruby bindings..."
+		cd ${B}/scripts/ruby
+		${RUBY} examples/load_benzene.rb
+	fi
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	if inherited mono
+	then
+		cd ${B}/scripts/csharp
+		dobin cygopenbabelcsharp.dll
+		# FIXME: not strongname signed, cannot be installed into GAC
+#		gacinto openbabel
+#		dogac OBDotNet.dll
+		insinto /usr/lib/mono/openbabel
+		doins OBDotNet.dll
+	fi
+
+	if inherited java
+	then
+		cd ${B}/scripts/java
+		dobin *.dll
+		dojar *.jar
+	fi
+
+	if inherited perl
+	then
+		cd ${B}/scripts/perl
+		perl_install
+		perl_postinst
+	fi
+
+	if inherited python
+	then
+		cd ${B}/scripts/python
+		distutils_install
+	fi
+
+	if inherited ruby
+	then
+		cd ${B}/scripts/ruby
+		ruby_install -j1
+	fi
+}
