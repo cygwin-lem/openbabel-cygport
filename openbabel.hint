@@ -1,5 +1,5 @@
 category: Science
-requires: libgcc1 libopenbabel3 libstdc++6
+requires: libgcc1 libopenbabel4 libstdc++6
 sdesc: "Open Babel chemistry toolbox (utilities)"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 

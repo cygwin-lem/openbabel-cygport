@@ -1,5 +1,5 @@
 category: Science Java
-requires: libgcc1 libopenbabel3 libstdc++6
+requires: libgcc1 libopenbabel4 libstdc++6
 external-source: openbabel
 sdesc: "Java bindings for the Open Babel chemistry toolkit"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 

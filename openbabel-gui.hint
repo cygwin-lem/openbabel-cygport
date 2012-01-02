@@ -1,7 +1,6 @@
-category: Science Ruby
-requires: libgcc1 libopenbabel4 libstdc++6 ruby
-external-source: openbabel
-sdesc: "Ruby bindings for the Open Babel chemistry toolkit"
+category: Science
+requires: libgcc1 libopenbabel4 libstdc++6 libwx_baseu2.0_0 libwx_gtk2u2.0_0
+sdesc: "Open Babel chemistry format converter GUI"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

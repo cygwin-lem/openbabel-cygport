@@ -1,7 +1,7 @@
-category: Science Ruby
-requires: libgcc1 libopenbabel4 libstdc++6 ruby
+category: Science
+requires:
 external-source: openbabel
-sdesc: "Ruby bindings for the Open Babel chemistry toolkit"
+sdesc: "IUPAC International Chemical Identifier library (runtime)"
 ldesc: "Open Babel is a chemical toolbox designed to speak the many 
 languages of chemical data. It's an open, collaborative project allowing 
 anyone to search, convert, analyze, or store data from molecular 

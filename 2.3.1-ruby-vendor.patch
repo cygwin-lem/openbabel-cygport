@@ -1,0 +1,11 @@
+--- origsrc/openbabel-2.3.1/scripts/CMakeLists.txt	2011-10-12 15:24:05.000000000 -0500
++++ src/openbabel-2.3.1/scripts/CMakeLists.txt	2012-01-02 01:41:57.699330700 -0600
+@@ -318,7 +318,7 @@ if (DO_RUBY_BINDINGS)
+         string(REGEX REPLACE ^${ruby_exec_prefix} ${CMAKE_INSTALL_PREFIX} ruby_install_dir "${RUBY_SITEARCH_DIR}")
+       endif (RUBY_PREFIX)
+       add_custom_target(bindings_ruby ALL
+-        COMMAND ${RUBY_EXECUTABLE} ${openbabel_SOURCE_DIR}/scripts/ruby/extconf.rb --with-openbabel-lib=${openbabel_BINARY_DIR}/lib${LIB_SUFFIX} --with-openbabel-include=${openbabel_BINARY_DIR}/include
++        COMMAND ${RUBY_EXECUTABLE} ${openbabel_SOURCE_DIR}/scripts/ruby/extconf.rb --vendor --with-openbabel-lib=${openbabel_BINARY_DIR}/src --with-openbabel-include=${openbabel_BINARY_DIR}/include
+         COMMAND ${CMAKE_COMMAND} -E echo "Compiling Ruby bindings"
+         COMMAND make
+         DEPENDS ${openbabel_SOURCE_DIR}/scripts/ruby/openbabel-ruby.cpp

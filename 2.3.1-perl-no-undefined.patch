@@ -1,0 +1,38 @@
+--- origsrc/openbabel-2.3.1/scripts/perl/OpenBabel.pm	2011-10-13 14:13:55.000000000 -0500
++++ src/openbabel-2.3.1/scripts/perl/OpenBabel.pm	2012-01-01 22:41:37.652491000 -0600
+@@ -3842,7 +3842,6 @@ use vars qw(@ISA %OWNER %ITERATORS %BLES
+ *swig_seekdata_get = *Chemistry::OpenBabelc::FptIndex_seekdata_get;
+ *swig_seekdata_set = *Chemistry::OpenBabelc::FptIndex_seekdata_set;
+ *Read = *Chemistry::OpenBabelc::FptIndex_Read;
+-*ReadIndex = *Chemistry::OpenBabelc::FptIndex_ReadIndex;
+ *ReadHeader = *Chemistry::OpenBabelc::FptIndex_ReadHeader;
+ *CheckFP = *Chemistry::OpenBabelc::FptIndex_CheckFP;
+ sub new {
+--- origsrc/openbabel-2.3.1/scripts/perl/openbabel-perl.cpp	2011-10-13 14:13:55.000000000 -0500
++++ src/openbabel-2.3.1/scripts/perl/openbabel-perl.cpp	2012-01-02 02:23:51.860047100 -0600
+@@ -19839,17 +19839,6 @@
+      arg2 = reinterpret_cast< std::istream * >(argp2); result = (bool)(arg1)->Read(arg2);
+     ST(argvi) = SWIG_From_bool  SWIG_PERL_CALL_ARGS_1(static_cast< bool >(result)); argvi++ ; XSRETURN(argvi); fail:
+     SWIG_croak_null(); }  }
+-XS(_wrap_FptIndex_ReadIndex) { { OpenBabel::FptIndex *arg1 = (OpenBabel::FptIndex *) 0 ;
+-    std::istream *arg2 = (std::istream *) 0 ; void *argp1 = 0 ; int res1 = 0 ; void *argp2 = 0 ; int res2 = 0 ; int argvi = 0;
+-    bool result; dXSARGS; if ((items < 2) || (items > 2)) { SWIG_croak("Usage: FptIndex_ReadIndex(self,pIndexstream);"); } 
+-    res1 = SWIG_ConvertPtr(ST(0), &argp1,SWIGTYPE_p_OpenBabel__FptIndex, 0 |  0 ); if (!SWIG_IsOK(res1)) {
+-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FptIndex_ReadIndex" "', argument " "1"" of type '" "OpenBabel::FptIndex *""'");  }
+-     arg1 = reinterpret_cast< OpenBabel::FptIndex * >(argp1);
+-    res2 = SWIG_ConvertPtr(ST(1), &argp2,SWIGTYPE_p_std__istream, 0 |  0 ); if (!SWIG_IsOK(res2)) {
+-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "FptIndex_ReadIndex" "', argument " "2"" of type '" "std::istream *""'");  }
+-     arg2 = reinterpret_cast< std::istream * >(argp2); result = (bool)(arg1)->ReadIndex(arg2);
+-    ST(argvi) = SWIG_From_bool  SWIG_PERL_CALL_ARGS_1(static_cast< bool >(result)); argvi++ ; XSRETURN(argvi); fail:
+-    SWIG_croak_null(); }  }
+ XS(_wrap_FptIndex_ReadHeader) { { OpenBabel::FptIndex *arg1 = (OpenBabel::FptIndex *) 0 ;
+     std::istream *arg2 = (std::istream *) 0 ; void *argp1 = 0 ; int res1 = 0 ; void *argp2 = 0 ; int res2 = 0 ; int argvi = 0;
+     bool result; dXSARGS; if ((items < 2) || (items > 2)) { SWIG_croak("Usage: FptIndex_ReadHeader(self,pIndexstream);"); } 
+@@ -42815,7 +42804,6 @@
+ {"Chemistry::OpenBabelc::FptIndex_seekdata_set", _wrap_FptIndex_seekdata_set},
+ {"Chemistry::OpenBabelc::FptIndex_seekdata_get", _wrap_FptIndex_seekdata_get},
+ {"Chemistry::OpenBabelc::FptIndex_Read", _wrap_FptIndex_Read},
+-{"Chemistry::OpenBabelc::FptIndex_ReadIndex", _wrap_FptIndex_ReadIndex},
+ {"Chemistry::OpenBabelc::FptIndex_ReadHeader", _wrap_FptIndex_ReadHeader},
+ {"Chemistry::OpenBabelc::FptIndex_CheckFP", _wrap_FptIndex_CheckFP},
+ {"Chemistry::OpenBabelc::new_FptIndex", _wrap_new_FptIndex},

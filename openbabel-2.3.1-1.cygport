@@ -1,0 +1,121 @@
+WX_VERSION=2.8
+
+inherit perl python ruby cmake wxwidgets # java mono
+
+DESCRIPTION="Open Babel chemistry toolkit"
+HOMEPAGE="http://openbabel.sourceforge.net/"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+
+PATCH_URI="
+	2.3.1-cygwin.patch
+	2.3.1-bindings-build.patch
+	2.3.1-perl-no-undefined.patch
+	2.3.1-ruby-vendor.patch
+"
+
+PKG_NAMES="${PN} ${PN}-gui lib${PN}4 lib${PN}-devel libinchi0 libinchi-devel \
+           perl-Chemistry-OpenBabel python-${PN} ruby-${PN}" # java-${PN}
+openbabel_CONTENTS="--exclude=obgui.* --exclude=OBGUI.* usr/bin/*.exe
+                    usr/share/doc/ usr/share/man/"
+openbabel_gui_CONTENTS="usr/bin/obgui.exe usr/share/applications/
+                        usr/share/man/man1/OBGUI.* usr/share/pixmaps/"
+libopenbabel4_CONTENTS="usr/bin/cyg${PN}-4.dll usr/*/${PN}/${PV}/"
+libopenbabel_devel_CONTENTS="usr/include/${PN}* usr/lib/lib${PN}.*
+                             usr/lib/cmake/ usr/lib/pkgconfig/"
+libinchi0_CONTENTS="usr/bin/cyginchi-0.dll"
+libinchi_devel_CONTENTS="usr/include/inchi/ usr/lib/libinchi.dll.a"
+java_openbabel_CONTENTS='usr/bin/*java.dll usr/share/java/'
+mono_OBDotNet_CONTENTS="usr/bin/*sharp.dll usr/lib/mono/"
+perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORLIB#/}
+python_openbabel_CONTENTS=${PYTHON_SITELIB#/}
+ruby_openbabel_CONTENTS=${RUBY_VENDORLIB#/}
+
+CYGCMAKE_ARGS="
+	-DwxWidgets_CONFIG_EXECUTABLE=${WX_CONFIG}
+	-DwxWidgets_wxrc_EXECUTABLE=${WXRC}
+	-DPERL_BINDINGS=ON
+	-DPYTHON_BINDINGS=ON
+	-DRUBY_BINDINGS=ON
+	-DOBPERL_INSTALLDIRS=vendor
+"
+
+src_test() {
+	export PATH=".:${B}/bin:${PATH}"
+
+	cd ${B}
+#	cygtest
+
+	if inherited mono
+	then
+		inform "Testing CSharp bindings..."
+		cd ${B}/scripts/csharp
+		${GMCS} -target:exe -out:example.exe example.cs -r:./OBDotNet.dll
+		${MONO} example.exe
+	fi
+
+	if inherited java
+	then
+		inform "Testing Java bindings..."
+		cd ${B}/scripts/java
+		cygjavac -classpath openbabel.jar OBTest.java
+		cygjava -classpath openbabel.jar:. OBTest
+	fi
+
+	if inherited perl
+	then
+		inform "Testing Perl bindings..."
+		cd ${B}/scripts/perl
+		perl_test
+	fi
+
+	if inherited python
+	then
+		inform "Testing Python bindings..."
+		cd ${B}/scripts
+		PYTHONPATH=pybuild \
+		${PYTHON} ${S}/scripts/python/examples/examples.py
+	fi
+
+	if inherited ruby
+	then
+		inform "Testing Ruby bindings..."
+		cd ${B}/scripts/ruby
+		${RUBY} ${S}/scripts/ruby/examples/load_benzene.rb
+	fi
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	doicon ${S}/src/GUI/babel.xpm
+	make_desktop_entry obgui "OpenBabel GUI" babel "Education;Science;Chemistry"
+
+	if inherited mono
+	then
+		cd ${B}/scripts/csharp
+		dobin cygopenbabel-csharp.dll
+		# FIXME: not strongname signed, cannot be installed into GAC
+#		gacinto openbabel
+#		dogac OBDotNet.dll
+		insinto /usr/lib/mono/openbabel
+		doins OBDotNet.dll
+	fi
+
+	if inherited java
+	then
+		cd ${B}/scripts/java
+		dobin *.dll
+		dojar *.jar
+	fi
+
+	if inherited perl
+	then
+		perl_postinst
+	fi
+
+	if inherited python
+	then
+		python_optimize
+	fi
+}
