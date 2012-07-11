@@ -5,7 +5,7 @@
        endif (RUBY_PREFIX)
        add_custom_target(bindings_ruby ALL
 -        COMMAND ${RUBY_EXECUTABLE} ${openbabel_SOURCE_DIR}/scripts/ruby/extconf.rb --with-openbabel-lib=${openbabel_BINARY_DIR}/lib${LIB_SUFFIX} --with-openbabel-include=${openbabel_BINARY_DIR}/include
-+        COMMAND ${RUBY_EXECUTABLE} ${openbabel_SOURCE_DIR}/scripts/ruby/extconf.rb --vendor --with-openbabel-lib=${openbabel_BINARY_DIR}/src --with-openbabel-include=${openbabel_BINARY_DIR}/include
++        COMMAND ${RUBY_EXECUTABLE} ${openbabel_SOURCE_DIR}/scripts/ruby/extconf.rb --vendor --with-openbabel-lib=${openbabel_BINARY_DIR}/src --with-openbabel-include=${openbabel_BINARY_DIR}/include:${openbabel_SOURCE_DIR}
          COMMAND ${CMAKE_COMMAND} -E echo "Compiling Ruby bindings"
          COMMAND make
          DEPENDS ${openbabel_SOURCE_DIR}/scripts/ruby/openbabel-ruby.cpp
