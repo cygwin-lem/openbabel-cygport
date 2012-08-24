@@ -31,7 +31,17 @@
                   )
 --- origsrc/openbabel-2.3.1/scripts/ruby/extconf.rb	2011-01-11 08:53:32.000000000 -0600
 +++ src/openbabel-2.3.1/scripts/ruby/extconf.rb	2012-01-02 01:35:43.980955300 -0600
-@@ -35,6 +35,7 @@ if RUBY_VERSION < "1.9"
+@@ -17,7 +17,8 @@ dir_config('openbabel')
+ # Find a trivial header in order to add the proper include path
+ # to the build flags.
+ here = File.dirname(__FILE__)
+-find_header('inchi_api.h', '/usr/include/inchi', '/usr/include', here + '/../../include')
++find_header('inchi_api.h', here + '/../../include')
++find_header('openbabel/babelconfig.h', '../../include')
+ 
+ # Prevent Ruby 1.8.x from trying to compile and link the extension
+ # using gcc.
+@@ -35,6 +36,7 @@ if RUBY_VERSION < "1.9"
    cpp_command(cxx)
  end
  
