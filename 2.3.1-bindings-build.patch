@@ -1,3 +1,15 @@
+--- origsrc/openbabel-2.3.2/scripts/CMakeLists.txt	2013-01-19 21:36:02.083988500 -0600
++++ src/openbabel-2.3.2/scripts/CMakeLists.txt	2013-01-19 22:11:17.684135600 -0600
+@@ -88,8 +88,7 @@ if (DO_PYTHON_BINDINGS)
+     if(NOT WIN32)
+         set_target_properties(bindings_python PROPERTIES
+             OUTPUT_NAME _openbabel
+-            PREFIX ""
+-            SUFFIX .so )
++            PREFIX "")
+         add_dependencies(bindings_python openbabel)
+         install(TARGETS bindings_python LIBRARY DESTINATION ${LIB_INSTALL_DIR})
+         install(FILES ${openbabel_SOURCE_DIR}/scripts/python/openbabel.py DESTINATION ${LIB_INSTALL_DIR})
 --- origsrc/openbabel-2.3.1/scripts/perl/Makefile.PL	2011-01-11 08:53:33.000000000 -0600
 +++ src/openbabel-2.3.1/scripts/perl/Makefile.PL	2012-01-01 22:14:06.119413900 -0600
 @@ -15,6 +15,9 @@ if (-e "$cmakebindir/lib/libopenbabel.so

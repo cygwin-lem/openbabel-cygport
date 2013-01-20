@@ -1,7 +1,9 @@
 WX_VERSION=2.8
-
 inherit perl python ruby cmake wxwidgets # java mono
 
+NAME="openbabel"
+VERSION=2.3.2
+RELEASE=1
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
@@ -12,19 +14,18 @@ HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 PATCH_URI="
+	http://sourceforge.net/p/openbabel/bugs/_discuss/thread/9ff43d1c/2423/attachment/08_perl_cmakelists.diff
 	2.3.1-cygwin.patch
 	2.3.1-bindings-build.patch
-	2.3.1-perl-no-undefined.patch
 	2.3.1-ruby-vendor.patch
 "
 
 PKG_NAMES="${PN} ${PN}-gui lib${PN}4 lib${PN}-devel libinchi0 libinchi-devel \
            perl-Chemistry-OpenBabel python-${PN} ruby-${PN}" # java-${PN}
-openbabel_CONTENTS="--exclude=obgui.* --exclude=OBGUI.* usr/bin/*.exe
-                    usr/share/doc/ usr/share/man/"
+openbabel_CONTENTS="--exclude=obgui.* usr/bin/*.exe usr/share/doc/ usr/share/man/"
 openbabel_gui_SUMMARY="Open Babel chemistry format converter GUI"
 openbabel_gui_CONTENTS="usr/bin/obgui.exe usr/share/applications/
-                        usr/share/man/man1/OBGUI.* usr/share/pixmaps/"
+                        usr/share/man/man1/obgui.* usr/share/pixmaps/"
 libopenbabel4_SUMMARY="${SUMMARY} (runtime)"
 libopenbabel4_CONTENTS="usr/bin/cyg${PN}-4.dll usr/*/${PN}/${PV}/"
 libopenbabel_devel_SUMMARY="${SUMMARY} (development)"
@@ -52,6 +53,9 @@ CYGCMAKE_ARGS="
 	-DwxWidgets_wxrc_EXECUTABLE=${WXRC}
 	-DPERL_BINDINGS=ON
 	-DPYTHON_BINDINGS=ON
+	-DPYTHON_EXECUTABLE=${PYTHON}
+	-DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDEDIR}
+	-DPYTHON_LIBRARY=/usr/lib/libpython${PYTHON_VERSION}.dll.a
 	-DRUBY_BINDINGS=ON
 	-DOBPERL_INSTALLDIRS=vendor
 "
@@ -133,6 +137,8 @@ src_install() {
 
 	if inherited python
 	then
+		dodir ${PYTHON_SITELIB}
+		mv ${D}/usr/lib/*.{dll,py} ${D}${PYTHON_SITELIB}
 		python_optimize
 	fi
 }
