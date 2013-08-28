@@ -53,11 +53,14 @@
  
  # Prevent Ruby 1.8.x from trying to compile and link the extension
  # using gcc.
-@@ -35,6 +36,7 @@ if RUBY_VERSION < "1.9"
+@@ -35,8 +36,9 @@ if RUBY_VERSION < "1.9"
    cpp_command(cxx)
  end
  
 +find_library('stdc++', nil)
  if have_library('openbabel')
-   with_ldflags("#$LDFLAGS -dynamic -flat_namespace") do #Enables cc to handle linking better.
+-  with_ldflags("#$LDFLAGS -dynamic -flat_namespace") do #Enables cc to handle linking better.
++  with_ldflags("#$LDFLAGS") do
    create_makefile('openbabel')
+ end
+ else
