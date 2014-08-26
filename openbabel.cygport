@@ -3,7 +3,7 @@ inherit perl python ruby cmake wxwidgets # java mono
 
 NAME="openbabel"
 VERSION=2.3.2
-RELEASE=1
+RELEASE=2
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
@@ -11,7 +11,7 @@ languages of chemical data. It's an open, collaborative project allowing
 anyone to search, convert, analyze, or store data from molecular modeling,
 chemistry, solid-state materials, biochemistry, or related areas."
 HOMEPAGE="http://openbabel.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/openbabel/openbabel-${VERSION}.tar.gz"
 
 PATCH_URI="
 	http://sourceforge.net/p/openbabel/bugs/_discuss/thread/9ff43d1c/2423/attachment/08_perl_cmakelists.diff
@@ -20,16 +20,16 @@ PATCH_URI="
 	2.3.1-ruby-vendor.patch
 "
 
-PKG_NAMES="${PN} ${PN}-gui lib${PN}4 lib${PN}-devel libinchi0 libinchi-devel \
-           perl-Chemistry-OpenBabel python-${PN} ruby-${PN}" # java-${PN}
+PKG_NAMES="${NAME} ${NAME}-gui lib${NAME}4 lib${NAME}-devel libinchi0 libinchi-devel \
+           perl-Chemistry-OpenBabel python-${NAME} ruby-${NAME}" # java-${NAME}
 openbabel_CONTENTS="--exclude=obgui.* usr/bin/*.exe usr/share/doc/ usr/share/man/"
 openbabel_gui_SUMMARY="Open Babel chemistry format converter GUI"
 openbabel_gui_CONTENTS="usr/bin/obgui.exe usr/share/applications/
                         usr/share/man/man1/obgui.* usr/share/pixmaps/"
 libopenbabel4_SUMMARY="${SUMMARY} (runtime)"
-libopenbabel4_CONTENTS="usr/bin/cyg${PN}-4.dll usr/*/${PN}/${PV}/"
+libopenbabel4_CONTENTS="usr/bin/cyg${NAME}-4.dll usr/*/${NAME}/${VERSION}/"
 libopenbabel_devel_SUMMARY="${SUMMARY} (development)"
-libopenbabel_devel_CONTENTS="usr/include/${PN}* usr/lib/lib${PN}.*
+libopenbabel_devel_CONTENTS="usr/include/${NAME}* usr/lib/lib${NAME}.*
                              usr/lib/cmake/ usr/lib/pkgconfig/"
 libinchi_devel_SUMMARY="IUPAC International Chemical Identifier library (development)"
 libinchi0_CONTENTS="usr/bin/cyginchi-0.dll"
@@ -46,7 +46,7 @@ python_openbabel_SUMMARY="${SUMMARY} (Python bindings)"
 python_openbabel_CONTENTS=${PYTHON_SITELIB#/}
 ruby_openbabel_CATEGORY="Ruby"
 ruby_openbabel_SUMMARY="${SUMMARY} (Ruby bindings)"
-ruby_openbabel_CONTENTS=${RUBY_VENDORLIB#/}
+ruby_openbabel_CONTENTS=${RUBY_VENDORARCH#/}
 
 CYGCMAKE_ARGS="
 	-DwxWidgets_CONFIG_EXECUTABLE=${WX_CONFIG}
@@ -64,7 +64,7 @@ src_test() {
 	export PATH=".:${B}/bin:${PATH}"
 
 	cd ${B}
-#	cygtest
+	cygtest
 
 	if inherited mono
 	then
