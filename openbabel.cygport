@@ -3,7 +3,7 @@ inherit perl python ruby cmake wxwidgets # java mono
 
 NAME="openbabel"
 VERSION=2.3.2
-RELEASE=3
+RELEASE=4
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
