@@ -1,9 +1,9 @@
 WX_VERSION=2.8
-inherit perl python ruby cmake wxwidgets # java mono
+inherit perl python2 ruby cmake wxwidgets # java mono
 
 NAME="openbabel"
 VERSION=2.3.2
-RELEASE=4
+RELEASE=5
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
@@ -19,10 +19,11 @@ PATCH_URI="
 	2.3.1-bindings-build.patch
 	2.3.1-ruby-vendor.patch
 	2.3.2-ruby2-rbconfig.patch
+	2.3.2-gcc5.patch
 "
 
 PKG_NAMES="${NAME} ${NAME}-gui lib${NAME}4 lib${NAME}-devel libinchi0 libinchi-devel \
-           perl-Chemistry-OpenBabel python-${NAME} ruby-${NAME}" # java-${NAME}
+           perl-Chemistry-OpenBabel python2-${NAME} ruby-${NAME}" # java-${NAME}
 openbabel_CONTENTS="--exclude=obgui.* usr/bin/*.exe usr/share/doc/ usr/share/man/"
 openbabel_gui_SUMMARY="Open Babel chemistry format converter GUI"
 openbabel_gui_CONTENTS="usr/bin/obgui.exe usr/share/applications/
@@ -42,9 +43,10 @@ java_openbabel_CONTENTS='usr/bin/*java.dll usr/share/java/'
 perl_Chemistry_OpenBabel_CATEGORY="Perl"
 perl_Chemistry_OpenBabel_SUMMARY="${SUMMARY} (Perl bindings)"
 perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORLIB#/}
-python_openbabel_CATEGORY="Python"
-python_openbabel_SUMMARY="${SUMMARY} (Python bindings)"
-python_openbabel_CONTENTS=${PYTHON_SITELIB#/}
+python2_openbabel_CATEGORY="Python"
+python2_openbabel_SUMMARY="${SUMMARY} (Python bindings)"
+python2_openbabel_OBSOLETES="python-openbabel"
+python2_openbabel_CONTENTS=${PYTHON2_SITELIB#/}
 ruby_openbabel_CATEGORY="Ruby"
 ruby_openbabel_SUMMARY="${SUMMARY} (Ruby bindings)"
 ruby_openbabel_CONTENTS=${RUBY_VENDORARCH#/}
@@ -54,9 +56,9 @@ CYGCMAKE_ARGS="
 	-DwxWidgets_wxrc_EXECUTABLE=${WXRC}
 	-DPERL_BINDINGS=ON
 	-DPYTHON_BINDINGS=ON
-	-DPYTHON_EXECUTABLE=${PYTHON}
-	-DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDEDIR}
-	-DPYTHON_LIBRARY=/usr/lib/libpython${PYTHON_VERSION}.dll.a
+	-DPYTHON_EXECUTABLE=${PYTHON2}
+	-DPYTHON_INCLUDE_DIR=${PYTHON2_INCLUDEDIR}
+	-DPYTHON_LIBRARY=/usr/lib/libpython${PYTHON2_VERSION}.dll.a
 	-DRUBY_BINDINGS=ON
 	-DOBPERL_INSTALLDIRS=vendor
 "
@@ -90,12 +92,12 @@ src_test() {
 		perl_test
 	fi
 
-	if inherited python
+	if inherited python2
 	then
 		inform "Testing Python bindings..."
 		cd ${B}/scripts
 		PYTHONPATH=pybuild \
-		${PYTHON} ${S}/scripts/python/examples/examples.py
+		${PYTHON2} ${S}/scripts/python/examples/examples.py
 	fi
 
 	if inherited ruby
@@ -108,6 +110,7 @@ src_test() {
 
 src_install() {
 	cd ${B}
+	dodir ${RUBY_VENDORARCH}
 	cyginstall
 
 	doicon ${S}/src/GUI/babel.xpm
@@ -131,15 +134,9 @@ src_install() {
 		dojar *.jar
 	fi
 
-	if inherited perl
+	if inherited python2
 	then
-		perl_postinst
-	fi
-
-	if inherited python
-	then
-		dodir ${PYTHON_SITELIB}
-		mv ${D}/usr/lib/*.{dll,py} ${D}${PYTHON_SITELIB}
-		python_optimize
+		dodir ${PYTHON2_SITELIB}
+		mv ${D}/usr/lib/*.{dll,py} ${D}${PYTHON2_SITELIB}
 	fi
 }
