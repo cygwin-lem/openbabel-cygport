@@ -3,7 +3,7 @@ inherit perl python2 ruby cmake wxwidgets # java mono
 
 NAME="openbabel"
 VERSION=2.3.2
-RELEASE=5
+RELEASE=6
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
@@ -42,7 +42,7 @@ java_openbabel_SUMMARY="${SUMMARY} (Java bindings)"
 java_openbabel_CONTENTS='usr/bin/*java.dll usr/share/java/'
 perl_Chemistry_OpenBabel_CATEGORY="Perl"
 perl_Chemistry_OpenBabel_SUMMARY="${SUMMARY} (Perl bindings)"
-perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORLIB#/}
+perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORARCH#/}
 python2_openbabel_CATEGORY="Python"
 python2_openbabel_SUMMARY="${SUMMARY} (Python bindings)"
 python2_openbabel_OBSOLETES="python-openbabel"
@@ -51,6 +51,7 @@ ruby_openbabel_CATEGORY="Ruby"
 ruby_openbabel_SUMMARY="${SUMMARY} (Ruby bindings)"
 ruby_openbabel_CONTENTS=${RUBY_VENDORARCH#/}
 
+CXXFLAGS+=" -std=gnu++98"
 CYGCMAKE_ARGS="
 	-DwxWidgets_CONFIG_EXECUTABLE=${WX_CONFIG}
 	-DwxWidgets_wxrc_EXECUTABLE=${WXRC}
