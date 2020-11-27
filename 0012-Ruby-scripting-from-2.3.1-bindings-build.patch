@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
+Date: Wed, 21 Oct 2020 23:42:55 +0900
+Subject: [PATCH] Ruby scripting from 2.3.1-bindings-build
+
+https://cygwin.com/git-cygwin-packages/?p=git/cygwin-packages/openbabel.git;a=blob;f=2.3.1-bindings-build.patch;h=fd48491ed9e1890b938ef4cec0c52800b19d9800;hb=dc63d1de5b97d8d0e09528fc7158777be1570657
+
+diff --git a/scripts/ruby/extconf.rb b/scripts/ruby/extconf.rb
+index ca64db8b3..c21d2c477 100644
+--- a/scripts/ruby/extconf.rb
++++ b/scripts/ruby/extconf.rb
+@@ -20,7 +20,8 @@ dir_config('openbabel')
+ # Find a trivial header in order to add the proper include path
+ # to the build flags.
+ here = File.dirname(__FILE__)
+-find_header('inchi_api.h', '/usr/include/inchi', '/usr/include', here + '/../../include')
++find_header('inchi_api.h', here + '/../../include')
++find_header('openbabel/babelconfig.h', '../../include')
+ 
+ # Prevent Ruby 1.8.x from trying to compile and link the extension
+ # using gcc.
+@@ -44,7 +45,7 @@ if have_library('openbabel')
+     create_makefile('openbabel')
+     end
+   else
+-    with_ldflags("#$LDFLAGS -dynamic") do #Enables cc to handle linking better.
++    with_ldflags("#$LDFLAGS") do #Enables cc to handle linking better.
+     create_makefile('openbabel')
+     end
+   end

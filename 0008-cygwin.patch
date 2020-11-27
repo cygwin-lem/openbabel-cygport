@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
+Date: Sun, 20 Sep 2020 23:19:30 +0900
+Subject: [PATCH] cygwin
+
+Patch from 2.3.1-cygwin.patch by Yaakov Selkowitz
+https://cygwin.com/git-cygwin-packages/?p=git/cygwin-packages/openbabel.git;a=commit;h=2ed5c1b06d20ed6ec5c8111f577c1a31f332a9be
+
+diff --git a/src/GUI/OBGUI.rc b/src/GUI/OBGUI.rc
+index 7372234d1..fece6e678 100644
+--- a/src/GUI/OBGUI.rc
++++ b/src/GUI/OBGUI.rc
+@@ -7,5 +7,7 @@ aaaaaaaa ICON "babel2.ico"
+ 
+ // this icon is used with wxFrame::SetIcon()
+ sample ICON "babel2.ico"
++#ifdef __WXMSW__
+ #include "wx/msw/wx.rc"
++#endif
+ 
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 300718a2a..fc2e4decf 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -222,7 +222,7 @@ install(TARGETS roundtrip
+ # The following tests should work okay in MinGW, it's just that the calling
+ # script needs some work. On Cygwin, there's some weird DLL problems when
+ # calling from Python.
+-if(NOT MINGW AND NOT CYGWIN)
++if(NOT MINGW)
+   include(UsePythonTest)
+   if(PYTHON_EXECUTABLE)
+     set(pytests
+@@ -240,7 +240,7 @@ if(NOT MINGW AND NOT CYGWIN)
+       )
+     endforeach(pytest ${pytests})
+   endif(PYTHON_EXECUTABLE)
+-endif(NOT MINGW AND NOT CYGWIN)
++endif(NOT MINGW)
+ 
+ ###############################
+ # Tests using Python bindings #

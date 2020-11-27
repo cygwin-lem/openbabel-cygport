@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
+Date: Thu, 22 Oct 2020 00:20:51 +0900
+Subject: [PATCH] Ruby bindings
+
+
+diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
+index 6618e02af..355759d63 100644
+--- a/scripts/CMakeLists.txt
++++ b/scripts/CMakeLists.txt
+@@ -443,9 +443,16 @@ if (DO_RUBY_BINDINGS)
+       target_link_libraries(bindings_ruby ${RUBY_LIBRARY} ${BABEL_LIBRARY})
+     endif()
+ 
++  if(CYGWIN)
++    set_target_properties(bindings_ruby PROPERTIES
++        OUTPUT_NAME openbabel
++        PREFIX ""
++        SUFFIX .so )
++  else()
+     set_target_properties(bindings_ruby PROPERTIES
+         OUTPUT_NAME openbabel
+         PREFIX "" )
++  endif()
+ 
+     if(NOT BINDINGS_ONLY)
+       add_dependencies(bindings_ruby openbabel)

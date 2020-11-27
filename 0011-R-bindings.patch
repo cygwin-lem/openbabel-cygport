@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
+Date: Mon, 21 Sep 2020 11:00:47 +0900
+Subject: [PATCH] R bindings
+
+
+diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
+index b2957f200..6618e02af 100644
+--- a/scripts/CMakeLists.txt
++++ b/scripts/CMakeLists.txt
+@@ -275,7 +275,11 @@ endif (R_BINDINGS)
+ if (DO_R_BINDINGS)
+ 
+ 
++  if (CYGWIN)
++    include_directories(/usr/lib/R/include )
++  else ()
+     include_directories(/usr/share/R/include )
++  endif ()
+     if (RUN_SWIG)
+ 		 add_custom_command(OUTPUT ${openbabel_SOURCE_DIR}/scripts/R/openbabel-R.cpp
+ 			 COMMAND ${CMAKE_COMMAND} -E make_directory ${openbabel_BINARY_DIR}/scripts/R

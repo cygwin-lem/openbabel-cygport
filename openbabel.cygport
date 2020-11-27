@@ -1,143 +1,269 @@
-WX_VERSION=2.8
-inherit perl python2 ruby cmake wxwidgets # java mono
+################################
+WX_VERSION=3.0
+#echo "WX_VERSION: ${WX_VERSION}"
 
-NAME="openbabel"
-VERSION=2.3.2
-RELEASE=6
+################################
+PY_VER=3.8
+PY_VER_SHORT=${PY_VER//./}
+PY_VER_MAJOR=${PY_VER%%.*}
+#echo "PY_VER: ${PY_VER}"
+#echo "PY_VER_SHORT: ${PY_VER_SHORT}"
+#echo "PY_VER_MAJOR: ${PY_VER_MAJOR}"
+
+################################
+inherit perl python3 ruby cmake wxwidgets # java mono
+
+################################
+
+NAME=openbabel
+VERSION=3.1.1p36
+RELEASE=1
+
+################################
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
 DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
 languages of chemical data. It's an open, collaborative project allowing
 anyone to search, convert, analyze, or store data from molecular modeling,
 chemistry, solid-state materials, biochemistry, or related areas."
-HOMEPAGE="http://openbabel.sourceforge.net/"
-SRC_URI="mirror://sourceforge/openbabel/openbabel-${VERSION}.tar.gz"
+HOMEPAGE="http://openbabel.org/"
 
-PATCH_URI="
-	http://sourceforge.net/p/openbabel/bugs/_discuss/thread/9ff43d1c/2423/attachment/08_perl_cmakelists.diff
-	2.3.1-cygwin.patch
-	2.3.1-bindings-build.patch
-	2.3.1-ruby-vendor.patch
-	2.3.2-ruby2-rbconfig.patch
-	2.3.2-gcc5.patch
-"
+################################
+## Source from a git repository
+################################
+GIT_REPO="https://github.com/openbabel/openbabel"
+declare -A GIT_DATEHASH_BY_NAME=(
+  # git log --date=iso-strict --format='%cd/%H' -1
+  [3.1.1p36]=2020-11-02T16:18:17-05:00/9c001b5aeb8b985f26d111d811673150607662fa
+  [3.1.1]=2020-05-08T11:38:02-04:00/cbd4db43f8908b874864280fdc03bf92569eebc1
+)
+REV_HASH="${GIT_DATEHASH_BY_NAME[${VERSION}]#*/}"
+REV_DATE="${GIT_DATEHASH_BY_NAME[${VERSION}]%/*}"
+REV_DATE_SHORT="${GIT_DATEHASH_BY_NAME[${VERSION}]%T*}"
+GIT_BASENAME="${GIT_REPO##*/}"
+SRC_URI="${GIT_REPO}/archive/${REV_HASH}.tar.gz"   # GitHub
+#SRC_URI="${GIT_REPO}/-/archive/${REV_HASH}/${GIT_BASENAME}-${REV_HASH}.tar.bz2" # GitLab
+SRC_DIR="${GIT_BASENAME}-${REV_HASH}"
 
-PKG_NAMES="${NAME} ${NAME}-gui lib${NAME}4 lib${NAME}-devel libinchi0 libinchi-devel \
-           perl-Chemistry-OpenBabel python2-${NAME} ruby-${NAME}" # java-${NAME}
-openbabel_CONTENTS="--exclude=obgui.* usr/bin/*.exe usr/share/doc/ usr/share/man/"
-openbabel_gui_SUMMARY="Open Babel chemistry format converter GUI"
-openbabel_gui_CONTENTS="usr/bin/obgui.exe usr/share/applications/
-                        usr/share/man/man1/obgui.* usr/share/pixmaps/"
-libopenbabel4_SUMMARY="${SUMMARY} (runtime)"
-libopenbabel4_CONTENTS="usr/bin/cyg${NAME}-4.dll usr/*/${NAME}/${VERSION}/"
-libopenbabel_devel_SUMMARY="${SUMMARY} (development)"
-libopenbabel_devel_CONTENTS="usr/include/${NAME}* usr/lib/lib${NAME}.*
-                             usr/lib/cmake/ usr/lib/pkgconfig/"
-libinchi_devel_SUMMARY="IUPAC International Chemical Identifier library (development)"
-libinchi0_CONTENTS="usr/bin/cyginchi-0.dll"
-libinchi0_SUMMARY="IUPAC International Chemical Identifier library (runtime)"
-libinchi_devel_CONTENTS="usr/include/inchi/ usr/lib/libinchi.dll.a"
-java_openbabel_CATEGORY="Java"
-java_openbabel_SUMMARY="${SUMMARY} (Java bindings)"
-java_openbabel_CONTENTS='usr/bin/*java.dll usr/share/java/'
-perl_Chemistry_OpenBabel_CATEGORY="Perl"
-perl_Chemistry_OpenBabel_SUMMARY="${SUMMARY} (Perl bindings)"
-perl_Chemistry_OpenBabel_CONTENTS=${PERL_VENDORARCH#/}
-python2_openbabel_CATEGORY="Python"
-python2_openbabel_SUMMARY="${SUMMARY} (Python bindings)"
-python2_openbabel_OBSOLETES="python-openbabel"
-python2_openbabel_CONTENTS=${PYTHON2_SITELIB#/}
-ruby_openbabel_CATEGORY="Ruby"
-ruby_openbabel_SUMMARY="${SUMMARY} (Ruby bindings)"
-ruby_openbabel_CONTENTS=${RUBY_VENDORARCH#/}
+################################
+## ABI for openbabel
+ABI=7
+################################
 
-CXXFLAGS+=" -std=gnu++98"
+################################
+## Settings for CMake
+################################
+if [ -n "${NO_NINJA}" ]; then
+  MAKEOPTS=-j1
+  CYGCMAKE_GENERATOR="Unix Makefiles"
+fi
+
 CYGCMAKE_ARGS="
-	-DwxWidgets_CONFIG_EXECUTABLE=${WX_CONFIG}
-	-DwxWidgets_wxrc_EXECUTABLE=${WXRC}
-	-DPERL_BINDINGS=ON
-	-DPYTHON_BINDINGS=ON
-	-DPYTHON_EXECUTABLE=${PYTHON2}
-	-DPYTHON_INCLUDE_DIR=${PYTHON2_INCLUDEDIR}
-	-DPYTHON_LIBRARY=/usr/lib/libpython${PYTHON2_VERSION}.dll.a
-	-DRUBY_BINDINGS=ON
-	-DOBPERL_INSTALLDIRS=vendor
+  -DCYGWIN:BOOL=ON
+  -DBUILD_SHARED:BOOL=ON
+  -DRUN_SWIG:BOOL=ON
+\
+  -DBUILD_GUI:BOOL=ON
+  -DwxWidgets_CONFIG_EXECUTABLE=${WX_CONFIG}
+  -DwxWidgets_wxrc_EXECUTABLE=${WXRC}
+\
+  -DPYTHON_BINDINGS:BOOL=ON
+  -DPYTHON_EXECUTABLE=/usr/bin/python${PY_VER}
+  -DRUBY_BINDINGS:BOOL=ON
+  -DPHP_BINDINGS:BOOL=OFF
+  -DPERL_BINDINGS:BOOL=ON
+  -DJAVA_BINDINGS:BOOL=OFF
+  -DCSHARP_BINDINGS:BOOL=OFF
+  -DR_BINDINGS:BOOL=OFF
+  -DPERL_INSTDIR=${PERL_VENDORARCH}
+  -DRUBY_INSTDIR=${RUBY_VENDORARCH}
 "
 
+################################
+## Requirements for building
+################################
+BUILD_REQUIRES="\
+  pkg-config\
+  cygwin-devel\
+  gcc-fortran\
+  libtool\
+  ninja\
+\
+  libmaeparser-devel\
+  libcoordgen-devel\
+  rapidjson-devel\
+\
+  swig\
+  eigen3\
+\
+  perl\
+  libnsl-devel\
+\
+  ruby\
+\
+  libreadline-devel\
+  libintl-devel\
+  libxml2-devel\
+  libiconv-devel\
+  zlib-devel\
+\
+  libcairo-devel\
+  libfreetype-devel\
+\
+  libgif-devel\
+  libjpeg-devel\
+  libpng-devel\
+  libtiff-devel\
+\
+  libX11-devel\
+  libXft-devel\
+  libXi-devel\
+\
+  libwx_baseu3.0-devel\
+  libwx_gtk3u3.0-devel\
+  libpango1.0-devel\
+\
+  python3-devel\
+  python38-devel\
+\
+  ruby-devel\
+"
+################################
+## Patch files
+################################
+# Patch filenames are in a default style of 'git format-patch'
+PATCH_URI=$(\
+  find -maxdepth 1 -type f -name '[0-9][0-9][0-9][0-9]-*.patch' \
+  | sort \
+)
+# Additional patches, if any
+PATCH_URI+="
+"
+
+################################
+## Contents of our packages
+################################
+# main package
+THIS_PN="${NAME}"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  --exclude=*.dll\
+  usr/bin/\
+  usr/share/man/\
+  usr/share/doc/\
+"
+#  etc/
+#  usr/share/applications/
+#  usr/share/metainfo/
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# Runtime libraries
+THIS_PN="lib${NAME}${ABI}"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (runtime)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  --exclude=usr/bin/cyginchi*.dll\
+  usr/bin/*.dll\
+  usr/lib/openbabel/\
+  usr/share/openbabel/\
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# Devel
+THIS_PN="lib${NAME}-devel"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (devel)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  --exclude=usr/include/inchi/*\
+  --exclude=usr/lib/libinchi.dll.a\
+  usr/include/\
+  usr/lib/cmake/\
+  usr/lib/pkgconfig/\
+  usr/lib/lib*.dll.a\
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# libinchi-devel
+THIS_PN="libinchi-devel"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_SUMMARY"  "%s" "IUPAC International Chemical Identifier library (development)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "usr/include/inchi/ usr/lib/libinchi.dll.a"
+
+################################
+# libinchi0
+THIS_PN="libinchi0"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_SUMMARY"  "%s" "IUPAC International Chemical Identifier library (runtime)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "usr/bin/cyginchi-0.dll"
+
+################################
+# Python bindings
+THIS_PN="python${PY_VER_SHORT}-${NAME}"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Python ${PY_VER} bindings)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  usr/lib/python${PY_VER}/ \
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# Perl bindings
+THIS_PN="perl-Chemistry-OpenBabel"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_CATEGORY" "%s" "Perl"
+printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Perl bindings)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  ${PERL_VENDORARCH#/}\
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# Ruby bindings
+THIS_PN="ruby-openbabel"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_CATEGORY" "%s" "Ruby"
+printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Ruby bindings)"
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  ${RUBY_VENDORARCH#/}\
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+DIFF_EXCLUDES="\
+  -x external \
+  -x scripts \
+"
+
+################################
+# The default src_test function defined in lib/src_test.cygpart
 src_test() {
-	export PATH=".:${B}/bin:${PATH}"
-
-	cd ${B}
-	cygtest
-
-	if inherited mono
-	then
-		inform "Testing CSharp bindings..."
-		cd ${B}/scripts/csharp
-		${GMCS} -target:exe -out:example.exe example.cs -r:./OBDotNet.dll
-		${MONO} example.exe
-	fi
-
-	if inherited java
-	then
-		inform "Testing Java bindings..."
-		cd ${B}/scripts/java
-		cygjavac -classpath openbabel.jar OBTest.java
-		cygjava -classpath openbabel.jar:. OBTest
-	fi
-
-	if inherited perl
-	then
-		inform "Testing Perl bindings..."
-		cd ${B}/scripts/perl
-		perl_test
-	fi
-
-	if inherited python2
-	then
-		inform "Testing Python bindings..."
-		cd ${B}/scripts
-		PYTHONPATH=pybuild \
-		${PYTHON2} ${S}/scripts/python/examples/examples.py
-	fi
-
-	if inherited ruby
-	then
-		inform "Testing Ruby bindings..."
-		cd ${B}/scripts/ruby
-		${RUBY} ${S}/scripts/ruby/examples/load_benzene.rb
-	fi
+        cd ${B}
+        cygtest
 }
 
-src_install() {
-	cd ${B}
-	dodir ${RUBY_VENDORARCH}
-	cyginstall
-
-	doicon ${S}/src/GUI/babel.xpm
-	make_desktop_entry obgui "OpenBabel GUI" babel "Education;Science;Chemistry"
-
-	if inherited mono
-	then
-		cd ${B}/scripts/csharp
-		dobin cygopenbabel-csharp.dll
-		# FIXME: not strongname signed, cannot be installed into GAC
-#		gacinto openbabel
-#		dogac OBDotNet.dll
-		insinto /usr/lib/mono/openbabel
-		doins OBDotNet.dll
-	fi
-
-	if inherited java
-	then
-		cd ${B}/scripts/java
-		dobin *.dll
-		dojar *.jar
-	fi
-
-	if inherited python2
-	then
-		dodir ${PYTHON2_SITELIB}
-		mv ${D}/usr/lib/*.{dll,py} ${D}${PYTHON2_SITELIB}
-	fi
-}
+################################

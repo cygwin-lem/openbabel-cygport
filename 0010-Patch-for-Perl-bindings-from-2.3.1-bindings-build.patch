@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
+Date: Mon, 21 Sep 2020 08:19:24 +0900
+Subject: [PATCH] Patch for Perl bindings from 2.3.1-bindings-build
+
+https://cygwin.com/git-cygwin-packages/?p=git/cygwin-packages/openbabel.git;a=blob;f=2.3.1-bindings-build.patch;h=fd48491ed9e1890b938ef4cec0c52800b19d9800;hb=dc63d1de5b97d8d0e09528fc7158777be1570657#l19
+
+diff --git a/scripts/perl/Makefile.PL b/scripts/perl/Makefile.PL
+index ac36dc945..617d61826 100644
+--- a/scripts/perl/Makefile.PL
++++ b/scripts/perl/Makefile.PL
+@@ -15,6 +15,9 @@ if (-e "$cmakebindir/lib/libopenbabel.so" || -e "$cmakebindir/lib/libopenbabel.d
+ elsif (-e "$cmakebindir/lib64/libopenbabel.so") {
+   check_lib_or_exit( lib => 'openbabel' , libpath => "$cmakebindir/lib64");
+ }
++elsif (-e "$cmakebindir/src/libopenbabel.dll.a") {
++  check_lib_or_exit( lib => 'openbabel' , libpath => "$cmakebindir/src");
++}
+ else {
+   check_lib_or_exit( lib => 'openbabel' , libpath => @ENV{"LD_LIBRARY_PATH"});
+ }
+@@ -24,6 +27,8 @@ $ldfrom = "\$(OBJECT) -L$cmakebindir/lib -lopenbabel -lz"
+     if (-r "$cmakebindir/lib/libopenbabel.dylib") and (-s _) and (-B _);
+ $ldfrom = "\$(OBJECT) -L$cmakebindir/lib -lopenbabel -lz"
+     if (-r "$cmakebindir/lib/libopenbabel.so") and (-s _) and (-B _);
++$ldfrom = "\$(OBJECT) -L$cmakebindir/src -lopenbabel"
++    if (-r "$cmakebindir/src/libopenbabel.dll.a") and (-s _) and (-B _);
+ $ldfrom = "\$(OBJECT) -L$cmakebindir/lib64 -lopenbabel"
+     if (-r "$cmakebindir/lib64/libopenbabel.so") and (-s _) and (-B _);
+ 
