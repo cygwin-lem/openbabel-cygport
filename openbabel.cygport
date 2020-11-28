@@ -17,7 +17,7 @@ inherit perl python3 ruby cmake wxwidgets # java mono
 
 NAME=openbabel
 VERSION=3.1.1p36
-RELEASE=1
+RELEASE=2
 
 ################################
 CATEGORY="Science"
@@ -149,6 +149,8 @@ THIS_VN=${THIS_PN//[-+\.]/_}
 PKG_NAMES+=" ${THIS_PN}"
 
 printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  --exclude=usr/bin/obgui.exe\
+  --exclude=usr/share/man/man1/obgui.1.gz\
   --exclude=*.dll\
   usr/bin/\
   usr/share/man/\
@@ -158,6 +160,20 @@ printf -v "${THIS_VN}_CONTENTS" "%s" "\
 #  usr/share/applications/
 #  usr/share/metainfo/
 printf -v "${THIS_VN}_REQUIRES" "%s" "\
+"
+
+################################
+# GUI package
+THIS_PN="${NAME}-gui"
+THIS_VN=${THIS_PN//[-+\.]/_}
+PKG_NAMES+=" ${THIS_PN}"
+
+printf -v "${THIS_VN}_CONTENTS" "%s" "\
+  usr/bin/obgui.exe\
+  usr/share/man/man1/obgui.1.gz\
+"
+printf -v "${THIS_VN}_REQUIRES" "%s" "\
+  ${NAME}\
 "
 
 ################################
