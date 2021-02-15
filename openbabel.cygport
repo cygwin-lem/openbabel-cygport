@@ -1,14 +1,45 @@
-################################
+################################################################
+__str_version_cyg() {
+  # Remove a period from a string "x.y" when both x and y are single-digit.
+  printf '%s' "$1" | sed -E 's/^([[:digit:]])\.([[:digit:]])$/\1\2/'
+}
+
+################################################################
+__current_pkg() {
+  THIS_PN="$1"
+}
+
+__add_pkg() {
+  THIS_PN="$1"
+  PKG_NAMES+=" ${THIS_PN}"
+}
+
+__set_pkg_property() {
+  local LOCAL_PN="$1"
+  if [ -z "${LOCAL_PN//[-+\._]/}" ]; then
+    LOCAL_PN="${THIS_PN}"
+  fi
+  local LOCAL_VN="${LOCAL_PN//[-+\.]/_}"
+  printf -v "${LOCAL_VN}_$2" "%s" "$3"
+}
+
+__append_pkg_property() {
+  local LOCAL_PN="$1"
+  if [ -z "${LOCAL_PN//[-+\._]/}" ]; then
+    LOCAL_PN="${THIS_PN}"
+  fi
+  local LOCAL_VN="${LOCAL_PN//[-+\.]/_}"
+  local LOCAL_VN_PROPERTY="${LOCAL_VN}_$2"
+  printf -v "${LOCAL_VN_PROPERTY}" "%s" "${!LOCAL_VN_PROPERTY}$3"
+}
+
+################################################################
 WX_VERSION=3.0
-#echo "WX_VERSION: ${WX_VERSION}"
 
 ################################
 PY_VER=3.8
-PY_VER_SHORT=${PY_VER//./}
+PY_VER_CYG=$(__str_version_cyg "${PY_VER}")
 PY_VER_MAJOR=${PY_VER%%.*}
-#echo "PY_VER: ${PY_VER}"
-#echo "PY_VER_SHORT: ${PY_VER_SHORT}"
-#echo "PY_VER_MAJOR: ${PY_VER_MAJOR}"
 
 ################################
 inherit perl python3 ruby cmake wxwidgets # java mono
@@ -17,15 +48,17 @@ inherit perl python3 ruby cmake wxwidgets # java mono
 
 NAME=openbabel
 VERSION=3.1.1p36
-RELEASE=2
+RELEASE=3
 
 ################################
 CATEGORY="Science"
 SUMMARY="Open Babel chemistry toolkit"
-DESCRIPTION="Open Babel is a chemical toolbox designed to speak the many
-languages of chemical data. It's an open, collaborative project allowing
-anyone to search, convert, analyze, or store data from molecular modeling,
-chemistry, solid-state materials, biochemistry, or related areas."
+DESCRIPTION="\
+Open Babel is a chemical toolbox designed to speak the many languages
+of chemical data. It's an open, collaborative project allowing anyone
+to search, convert, analyze, or store data from molecular modeling,
+chemistry, solid-state materials, biochemistry, or related areas.
+"
 HOMEPAGE="http://openbabel.org/"
 
 ################################
@@ -35,20 +68,18 @@ GIT_REPO="https://github.com/openbabel/openbabel"
 declare -A GIT_DATEHASH_BY_NAME=(
   # git log --date=iso-strict --format='%cd/%H' -1
   [3.1.1p36]=2020-11-02T16:18:17-05:00/9c001b5aeb8b985f26d111d811673150607662fa
-  [3.1.1]=2020-05-08T11:38:02-04:00/cbd4db43f8908b874864280fdc03bf92569eebc1
+  [3.1.1]=2020-05-08T11:38:02-04:00/openbabel-3-1-1
 )
 REV_HASH="${GIT_DATEHASH_BY_NAME[${VERSION}]#*/}"
-REV_DATE="${GIT_DATEHASH_BY_NAME[${VERSION}]%/*}"
-REV_DATE_SHORT="${GIT_DATEHASH_BY_NAME[${VERSION}]%T*}"
+REV_DATE="${GIT_DATEHASH_BY_NAME[${VERSION}]%%/*}"
+REV_DATE_SHORT="${REV_DATE%%T*}"
 GIT_BASENAME="${GIT_REPO##*/}"
-SRC_URI="${GIT_REPO}/archive/${REV_HASH}.tar.gz"   # GitHub
-#SRC_URI="${GIT_REPO}/-/archive/${REV_HASH}/${GIT_BASENAME}-${REV_HASH}.tar.bz2" # GitLab
-SRC_DIR="${GIT_BASENAME}-${REV_HASH}"
+SRC_URI="${GIT_REPO}/archive/${REV_HASH}/${GIT_BASENAME}-${VERSION}.tar.gz"
+SRC_DIR="${GIT_BASENAME}-${REV_HASH#v}"
 
 ################################
 ## ABI for openbabel
 ABI=7
-################################
 
 ################################
 ## Settings for CMake
@@ -85,22 +116,17 @@ CYGCMAKE_ARGS="
 BUILD_REQUIRES="\
   pkg-config\
   cygwin-devel\
-  gcc-fortran\
   libtool\
   ninja\
+  swig\
 \
+  libboost-devel\
   libmaeparser-devel\
   libcoordgen-devel\
   rapidjson-devel\
-\
-  swig\
   eigen3\
 \
-  perl\
   libnsl-devel\
-\
-  ruby\
-\
   libreadline-devel\
   libintl-devel\
   libxml2-devel\
@@ -123,11 +149,12 @@ BUILD_REQUIRES="\
   libwx_gtk3u3.0-devel\
   libpango1.0-devel\
 \
-  python3-devel\
+  perl\
   python38-devel\
-\
+  ruby\
   ruby-devel\
 "
+
 ################################
 ## Patch files
 ################################
@@ -144,11 +171,8 @@ PATCH_URI+="
 ## Contents of our packages
 ################################
 # main package
-THIS_PN="${NAME}"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "${NAME}"
+__set_pkg_property . CONTENTS "\
   --exclude=usr/bin/obgui.exe\
   --exclude=usr/share/man/man1/obgui.1.gz\
   --exclude=*.dll\
@@ -156,50 +180,35 @@ printf -v "${THIS_VN}_CONTENTS" "%s" "\
   usr/share/man/\
   usr/share/doc/\
 "
-#  etc/
-#  usr/share/applications/
-#  usr/share/metainfo/
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
-"
 
 ################################
 # GUI package
-THIS_PN="${NAME}-gui"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "${NAME}-gui"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (GUI)"
+__set_pkg_property . CONTENTS "\
   usr/bin/obgui.exe\
   usr/share/man/man1/obgui.1.gz\
 "
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
+__set_pkg_property . REQUIRES "\
   ${NAME}\
 "
 
 ################################
 # Runtime libraries
-THIS_PN="lib${NAME}${ABI}"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (runtime)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "lib${NAME}${ABI}"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (runtime)"
+__set_pkg_property . CONTENTS "\
   --exclude=usr/bin/cyginchi*.dll\
   usr/bin/*.dll\
   usr/lib/openbabel/\
   usr/share/openbabel/\
 "
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
-"
 
 ################################
 # Devel
-THIS_PN="lib${NAME}-devel"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (devel)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "lib${NAME}-devel"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (development)"
+__set_pkg_property . CONTENTS "\
   --exclude=usr/include/inchi/*\
   --exclude=usr/lib/libinchi.dll.a\
   usr/include/\
@@ -207,66 +216,51 @@ printf -v "${THIS_VN}_CONTENTS" "%s" "\
   usr/lib/pkgconfig/\
   usr/lib/lib*.dll.a\
 "
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
-"
 
 ################################
 # libinchi-devel
-THIS_PN="libinchi-devel"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_SUMMARY"  "%s" "IUPAC International Chemical Identifier library (development)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "usr/include/inchi/ usr/lib/libinchi.dll.a"
+__add_pkg "libinchi-devel"
+__set_pkg_property . SUMMARY  "\
+IUPAC International Chemical Identifier library (development)"
+__set_pkg_property . CONTENTS "\
+  usr/include/inchi/\
+  usr/lib/libinchi.dll.a\
+"
 
 ################################
 # libinchi0
-THIS_PN="libinchi0"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_SUMMARY"  "%s" "IUPAC International Chemical Identifier library (runtime)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "usr/bin/cyginchi-0.dll"
+__add_pkg "libinchi0"
+__set_pkg_property . SUMMARY  "\
+IUPAC International Chemical Identifier library (runtime)"
+__set_pkg_property . CONTENTS "\
+  usr/bin/cyginchi-0.dll\
+"
 
 ################################
 # Python bindings
-THIS_PN="python${PY_VER_SHORT}-${NAME}"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Python ${PY_VER} bindings)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
-  usr/lib/python${PY_VER}/ \
-"
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
+__add_pkg "python${PY_VER_CYG}-${NAME}"
+__set_pkg_property . CATEGORY "Python"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (Python ${PY_VER} bindings)"
+__set_pkg_property . CONTENTS "\
+  usr/lib/python${PY_VER}/\
 "
 
 ################################
 # Perl bindings
-THIS_PN="perl-Chemistry-OpenBabel"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_CATEGORY" "%s" "Perl"
-printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Perl bindings)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "perl-Chemistry-OpenBabel"
+__set_pkg_property . CATEGORY "Perl"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (Perl bindings)"
+__set_pkg_property . CONTENTS "\
   ${PERL_VENDORARCH#/}\
-"
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
 "
 
 ################################
 # Ruby bindings
-THIS_PN="ruby-openbabel"
-THIS_VN=${THIS_PN//[-+\.]/_}
-PKG_NAMES+=" ${THIS_PN}"
-
-printf -v "${THIS_VN}_CATEGORY" "%s" "Ruby"
-printf -v "${THIS_VN}_SUMMARY"  "%s" "${SUMMARY% *} (Ruby bindings)"
-printf -v "${THIS_VN}_CONTENTS" "%s" "\
+__add_pkg "ruby-openbabel"
+__set_pkg_property . CATEGORY "Ruby"
+__set_pkg_property . SUMMARY  "${SUMMARY% *} (Ruby bindings)"
+__set_pkg_property . CONTENTS "\
   ${RUBY_VENDORARCH#/}\
-"
-printf -v "${THIS_VN}_REQUIRES" "%s" "\
 "
 
 ################################
@@ -278,8 +272,10 @@ DIFF_EXCLUDES="\
 ################################
 # The default src_test function defined in lib/src_test.cygpart
 src_test() {
-        cd ${B}
-        cygtest
+  unset BABEL_DATADIR
+  cd ${B}
+  ctest
 }
 
 ################################
+export PATH="/usr/bin"
