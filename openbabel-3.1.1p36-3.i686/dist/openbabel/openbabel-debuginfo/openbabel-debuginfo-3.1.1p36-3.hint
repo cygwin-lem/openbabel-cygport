@@ -1,5 +1,5 @@
 category: Debug
-requires: cygwin-debuginfo
+requires: cygwin-debuginfo perl5_032
 external-source: openbabel
 sdesc: "Debug info for openbabel"
 ldesc: "This package contains files necessary for debugging the
