@@ -4,4 +4,3 @@ external-source: openbabel
 sdesc: "Debug info for openbabel"
 ldesc: "This package contains files necessary for debugging the
 openbabel package with gdb."
-test:
