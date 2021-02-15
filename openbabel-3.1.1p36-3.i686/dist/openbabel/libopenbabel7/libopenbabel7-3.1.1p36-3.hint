@@ -1,0 +1,10 @@
+category: Science
+requires: cygwin libcairo2 libgcc1 libinchi0 libmaeparser1 libstdc++6 libxml2 zlib0  perl5_032 
+sdesc: "Open Babel chemistry (runtime)"
+ldesc: "Open Babel is a chemical toolbox designed to speak the many languages
+of chemical data. It's an open, collaborative project allowing anyone
+to search, convert, analyze, or store data from molecular modeling,
+chemistry, solid-state materials, biochemistry, or related areas.
+"
+external-source: openbabel
+test:

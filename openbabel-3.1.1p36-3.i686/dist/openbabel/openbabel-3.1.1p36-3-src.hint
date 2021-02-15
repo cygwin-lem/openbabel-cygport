@@ -1,0 +1,11 @@
+category: Science
+build-depends: cygport   pkg-config  cygwin-devel  libtool  ninja  swig  libboost-devel  libmaeparser-devel  libcoordgen-devel  rapidjson-devel  eigen3  libnsl-devel  libreadline-devel  libintl-devel  libxml2-devel  libiconv-devel  zlib-devel  libcairo-devel  libfreetype-devel  libgif-devel  libjpeg-devel  libpng-devel  libtiff-devel  libX11-devel  libXft-devel  libXi-devel  libwx_baseu3.0-devel  libwx_gtk3u3.0-devel  libpango1.0-devel  perl  perl5_032  python38-devel  ruby  ruby-devel
+sdesc: "Open Babel chemistry toolkit"
+ldesc: "Open Babel is a chemical toolbox designed to speak the many languages
+of chemical data. It's an open, collaborative project allowing anyone
+to search, convert, analyze, or store data from molecular modeling,
+chemistry, solid-state materials, biochemistry, or related areas.
+"
+skip:
+test:
+homepage: http://openbabel.org/
