@@ -47,8 +47,8 @@ inherit perl python3 ruby cmake wxwidgets # java mono
 ################################
 
 NAME=openbabel
-VERSION=3.1.1p36
-RELEASE=3
+VERSION=3.1.1p73
+RELEASE=1
 
 ################################
 CATEGORY="Science"
@@ -67,6 +67,7 @@ HOMEPAGE="http://openbabel.org/"
 GIT_REPO="https://github.com/openbabel/openbabel"
 declare -A GIT_DATEHASH_BY_NAME=(
   # git log --date=iso-strict --format='%cd/%H' -1
+  [3.1.1p73]=2021-09-12T15:16:44-04:00/f3ed2a9a5166dbd3b9ce386e636a176074a6c34c
   [3.1.1p36]=2020-11-02T16:18:17-05:00/9c001b5aeb8b985f26d111d811673150607662fa
   [3.1.1]=2020-05-08T11:38:02-04:00/openbabel-3-1-1
 )
