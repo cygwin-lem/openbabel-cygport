@@ -1,26 +1,20 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Lemures Lemniscati <lemures.lemniscati@gmail.com>
-Date: Mon, 21 Sep 2020 06:37:39 +0900
-Subject: [PATCH] Python scripting from 2.3.1-bindings-build
-
-https://cygwin.com/git-cygwin-packages/?p=git/cygwin-packages/openbabel.git;a=blob;f=2.3.1-bindings-build.patch;h=fd48491ed9e1890b938ef4cec0c52800b19d9800;hb=dc63d1de5b97d8d0e09528fc7158777be1570657
-
-diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
-index d62c754f3..b2957f200 100644
---- a/scripts/CMakeLists.txt
-+++ b/scripts/CMakeLists.txt
-@@ -99,10 +99,16 @@ if (DO_PYTHON_BINDINGS)
+--- origsrc/openbabel-f03cea648ffb0ca823ad01b708e26820f09ed002/scripts/CMakeLists.txt
++++ src/openbabel-f03cea648ffb0ca823ad01b708e26820f09ed002/scripts/CMakeLists.txt
+@@ -103,11 +103,19 @@
      endif()
  
      if(NOT WIN32)
 +      if(CYGWIN)
 +        set_target_properties(bindings_python PROPERTIES
 +            OUTPUT_NAME _openbabel
-+            PREFIX "" )
++            PREFIX ""
++            LIBRARY_OUTPUT_DIRECTORY "${openbabel_SOURCE_DIR}/scripts/python/openbabel/"
++            )
 +      else()
          set_target_properties(bindings_python PROPERTIES
              OUTPUT_NAME _openbabel
              PREFIX ""
+             LIBRARY_OUTPUT_DIRECTORY "${openbabel_SOURCE_DIR}/scripts/python/openbabel/"
              SUFFIX .so )
 +      endif()
        if( "${PYTHON_INSTDIR}" STREQUAL "" )
