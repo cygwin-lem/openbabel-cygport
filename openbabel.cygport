@@ -60,6 +60,7 @@ to search, convert, analyze, or store data from molecular modeling,
 chemistry, solid-state materials, biochemistry, or related areas.
 "
 HOMEPAGE="http://openbabel.org/"
+LICENSE="GPL-2.0-only" # https://spdx.org/licenses/GPL-2.0-only.html
 
 ################################
 ## Source from a git repository
