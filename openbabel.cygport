@@ -153,7 +153,7 @@ BUILD_REQUIRES="\
   libpango1.0-devel\
 \
   perl\
-  perl5_032\
+  perl5_036\
   python39-devel\
   ruby\
   ruby-devel\
@@ -184,7 +184,7 @@ __set_pkg_property . CONTENTS "\
   usr/share/man/\
   usr/share/doc/\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # GUI package
@@ -197,7 +197,7 @@ __set_pkg_property . CONTENTS "\
 __set_pkg_property . REQUIRES "\
   ${NAME}\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Runtime libraries
@@ -209,7 +209,7 @@ __set_pkg_property . CONTENTS "\
   usr/lib/openbabel/\
   usr/share/openbabel/\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Devel
@@ -223,7 +223,7 @@ __set_pkg_property . CONTENTS "\
   usr/lib/pkgconfig/\
   usr/lib/lib*.dll.a\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # libinchi-devel
@@ -234,7 +234,7 @@ __set_pkg_property . CONTENTS "\
   usr/include/inchi/\
   usr/lib/libinchi.dll.a\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # libinchi0
@@ -244,7 +244,7 @@ IUPAC International Chemical Identifier library (runtime)"
 __set_pkg_property . CONTENTS "\
   usr/bin/cyginchi-0.dll\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Python bindings
@@ -254,7 +254,7 @@ __set_pkg_property . SUMMARY  "${SUMMARY% *} (Python ${PY_VER} bindings)"
 __set_pkg_property . CONTENTS "\
   usr/lib/python${PY_VER}/\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Perl bindings
@@ -264,7 +264,7 @@ __set_pkg_property . SUMMARY  "${SUMMARY% *} (Perl bindings)"
 __set_pkg_property . CONTENTS "\
   ${PERL_VENDORARCH#/}\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Ruby bindings
@@ -274,7 +274,7 @@ __set_pkg_property . SUMMARY  "${SUMMARY% *} (Ruby bindings)"
 __set_pkg_property . CONTENTS "\
   ${RUBY_VENDORARCH#/}\
 "
-__append_pkg_property . REQUIRES " perl5_032 "
+__append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 DIFF_EXCLUDES="\
