@@ -284,4 +284,4 @@ src_test() {
 }
 
 ################################
-export PATH="/usr/bin"
+#export PATH="/usr/bin"
