@@ -276,10 +276,8 @@ DIFF_EXCLUDES="\
 ################################
 # The default src_test function defined in lib/src_test.cygpart
 src_test() {
-  unset BABEL_DATADIR
   cd ${B}
   ctest
 }
 
 ################################
-export PATH="/usr/bin"
