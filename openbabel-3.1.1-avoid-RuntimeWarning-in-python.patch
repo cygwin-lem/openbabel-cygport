@@ -1,0 +1,11 @@
+--- origsrc/openbabel-9c001b5aeb8b985f26d111d811673150607662fa/test/testbabel.py	2020-11-03 06:18:17.000000000 +0900
++++ src/openbabel-9c001b5aeb8b985f26d111d811673150607662fa/test/testbabel.py	2023-10-22 09:19:01.804615800 +0900
+@@ -48,7 +48,7 @@ def run_exec(*args):
+     # Without this, it's unbuffered and it takes 10x longer on MacOSX
+     if text:
+         p = Popen([exe] + broken[1:],
+-                  stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=1)
++                  stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=-1)
+         stdout, stderr = p.communicate(text.encode())
+     else:
+         p = Popen([exe] + broken[1:],

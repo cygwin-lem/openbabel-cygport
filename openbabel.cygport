@@ -168,6 +168,9 @@ PATCH_URI=$(\
 )
 # Additional patches, if any
 PATCH_URI+="
+  openbabel-3.1.1-avoid-RuntimeWarning-in-python.patch
+"
+PATCH_URI+="
 https://src.fedoraproject.org/rpms/openbabel/raw/rawhide/f/openbabel-3.1.1-bug2378.patch
 https://src.fedoraproject.org/rpms/openbabel/raw/rawhide/f/openbabel-3.1.1-bug2493.patch
 https://src.fedoraproject.org/rpms/openbabel/raw/rawhide/f/openbabel-disable-tests-s390x.patch
