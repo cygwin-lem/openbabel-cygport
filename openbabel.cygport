@@ -37,7 +37,7 @@ __append_pkg_property() {
 WX_VERSION=3.0
 
 ################################
-PY_VER=3.8
+PY_VER=3.9
 PY_VER_CYG=$(__str_version_cyg "${PY_VER}")
 PY_VER_MAJOR=${PY_VER%%.*}
 
@@ -48,7 +48,7 @@ inherit perl python3 ruby cmake wxwidgets # java mono
 
 NAME=openbabel
 VERSION=3.1.1p36
-RELEASE=3
+RELEASE=4
 
 ################################
 CATEGORY="Science"
@@ -151,9 +151,10 @@ BUILD_REQUIRES="\
   libpango1.0-devel\
 \
   perl\
-  perl5_032\
-  python38-devel\
+  perl5_036\
+  python39-devel\
   ruby\
+  ruby_32\
   ruby-devel\
 "
 
