@@ -153,6 +153,9 @@ BUILD_REQUIRES="\
   perl\
   perl5_036\
   python39-devel\
+  python39-pytest\
+  python39-exceptiongroup\
+  python39-tomli\
   ruby\
   ruby_32\
   ruby-devel\
