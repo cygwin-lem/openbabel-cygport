@@ -1,0 +1,10 @@
+category: Python
+requires: cygwin libgcc1 libopenbabel7 libstdc++6 python39
+sdesc: "Open Babel chemistry (Python 3.9 bindings)"
+ldesc: "Open Babel is a chemical toolbox designed to speak the many languages
+of chemical data. It's an open, collaborative project allowing anyone
+to search, convert, analyze, or store data from molecular modeling,
+chemistry, solid-state materials, biochemistry, or related areas.
+"
+external-source: openbabel
+
