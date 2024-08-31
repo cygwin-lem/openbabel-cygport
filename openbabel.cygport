@@ -48,7 +48,7 @@ inherit perl python3 ruby cmake wxwidgets # java mono
 
 NAME=openbabel
 VERSION=3.1.1p36
-RELEASE=4
+RELEASE=5
 
 ################################
 CATEGORY="Science"
@@ -151,7 +151,6 @@ BUILD_REQUIRES="\
   libpango1.0-devel\
 \
   perl\
-  perl5_036\
   python39-devel\
   python39-pytest\
   python39-exceptiongroup\
@@ -267,7 +266,6 @@ __set_pkg_property . SUMMARY  "${SUMMARY% *} (Perl bindings)"
 __set_pkg_property . CONTENTS "\
   ${PERL_VENDORARCH#/}\
 "
-# __append_pkg_property . REQUIRES " perl5_036 "
 
 ################################
 # Ruby bindings
